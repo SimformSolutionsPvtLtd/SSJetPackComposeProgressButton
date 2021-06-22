@@ -1,0 +1,2 @@
+com/simform/ssloadingbuttonandroid/BuildConfig.java
+ com.simform.ssloadingbuttonandroid.BuildConfig
