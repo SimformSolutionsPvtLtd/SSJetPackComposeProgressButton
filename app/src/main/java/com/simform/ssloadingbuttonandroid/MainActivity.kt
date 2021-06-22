@@ -2,6 +2,7 @@ package com.simform.ssloadingbuttonandroid
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.ScrollView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.*
@@ -27,13 +28,16 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.simform.ssloadingbuttonandroid.ui.theme.SSLoadingButtonAndroidTheme
 
 class MainActivity : ComponentActivity() {
+
     private var context: Context? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -51,13 +55,15 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting() {
     var visible by remember { mutableStateOf(true) }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //********************************************************************************//
+
+        //************************************** Button 1 ******************************************//
         AnimatedVisibility(
             visible = visible,
             enter = fadeIn(initialAlpha = 0.4f),
@@ -73,13 +79,14 @@ fun Greeting() {
                 elevation = ButtonDefaults.elevation(8.dp),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color.Blue,
-                    contentColor = Color.Red
+                    contentColor = Color.White
                 )
             ) {
                 Text(text = "Button 1")
             }
         }
-        //********************************************************************************//
+
+        //************************************** Button 2 ******************************************//
         var widthSize by remember { mutableStateOf(375.dp) }
         var state by remember { mutableStateOf(true) }
         val width by animateDpAsState(
@@ -92,10 +99,10 @@ fun Greeting() {
         )
         Button(
             onClick = {
-                if (state) {
-                    widthSize = 100.dp
+                widthSize = if (state) {
+                    100.dp
                 } else {
-                    widthSize = 375.dp
+                    375.dp
                 }
                 state = !state
             },
@@ -110,7 +117,9 @@ fun Greeting() {
         ) {
             Text(text = "Button 2")
         }
-        //********************************************************************************//
+
+
+        //************************************** Button 3 ******************************************//
         val infiniteTransition = rememberInfiniteTransition()
         val scaleAnim by infiniteTransition.animateFloat(
             initialValue = 1f,
@@ -156,13 +165,13 @@ fun Greeting() {
             if (state == ComponentState.Pressed) 3f else 1f
         }
         val color: Color by transition.animateColor(transitionSpec = {
-                when {
-                    ComponentState.Pressed isTransitioningTo ComponentState.Released ->
-                        spring(stiffness = 50f)
-                    else ->
-                        tween(durationMillis = 500)
-                }
-            }) { state ->
+            when {
+                ComponentState.Pressed isTransitioningTo ComponentState.Released ->
+                    spring(stiffness = 50f)
+                else ->
+                    tween(durationMillis = 500)
+            }
+        }) { state ->
             when (state) {
                 ComponentState.Pressed -> MaterialTheme.colors.primary
                 ComponentState.Released -> if (useRed) Color.Red else MaterialTheme.colors.secondary
@@ -194,7 +203,6 @@ fun Greeting() {
         ) {
             Text(text = "")
         }
-
 
 
         //********************************************************************************//
