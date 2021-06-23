@@ -10,7 +10,6 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,7 +25,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
@@ -162,7 +160,7 @@ fun Greeting() {
         val scale: Float by transition.animateFloat(
             transitionSpec = { spring(stiffness = 50f) }
         ) { state ->
-            if (state == ComponentState.Pressed) 3f else 1f
+            if (state == ComponentState.Pressed) 2f else 1f
         }
         val color: Color by transition.animateColor(transitionSpec = {
             when {
@@ -173,54 +171,58 @@ fun Greeting() {
             }
         }) { state ->
             when (state) {
-                ComponentState.Pressed -> MaterialTheme.colors.primary
-                ComponentState.Released -> if (useRed) Color.Red else MaterialTheme.colors.secondary
+                ComponentState.Pressed -> Color.Gray
+                ComponentState.Released -> Color.Blue
             }
         }
         Button(
             onClick = {
                 useRed = !useRed
+                if (useRed) {
+                    toState = ComponentState.Pressed
+                } else {
+                    toState = ComponentState.Released
+                }
             },
             modifier = Modifier
                 .padding(10.dp)
-                .size((100 * scale).dp)
-                .pointerInput(Unit) {
-                    detectTapGestures(
-                        onPress = {
-                            toState = ComponentState.Pressed
-                            tryAwaitRelease()
-                            toState = ComponentState.Released
-                        }
-                    )
-                },
+                .size((100 * scale).dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = color,
-                contentColor = Color.Blue
+                contentColor = Color.White
             ),
             border = BorderStroke(width = 2.dp, brush = SolidColor(Color.DarkGray)),
             shape = RoundedCornerShape(50)
 
         ) {
-            Text(text = "")
+            Text(text = "Hello")
         }
 
 
-        //********************************************************************************//
-        Button(
-            onClick = {
 
-            },
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Transparent,
-                contentColor = Color.Red
-            ),
-            border = BorderStroke(width = 2.dp, brush = SolidColor(Color.Blue)),
-            shape = CutCornerShape(10.dp)
+        //********************************************************************************//
+        var isProgressVisible by remember { mutableStateOf(true) }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Button 5")
+            Button(
+                onClick = {
+                    visible = !visible
+                },
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.Transparent,
+                    contentColor = Color.Red
+                ),
+                border = BorderStroke(width = 2.dp, brush = SolidColor(Color.Blue)),
+                shape = CutCornerShape(10.dp)
+            ) {
+                Text(text = "Button 5")
+            }
+            CircularProgressIndicator()
         }
 
         //********************************************************************************//
