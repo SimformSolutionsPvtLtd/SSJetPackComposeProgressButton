@@ -1,10 +1,10 @@
-package com.simform.ssloadingbuttonandroid
+package com.simform.ssloadingbuttonandroid.ssbutton
 
 
-enum class ButtonStateList {
+enum class SSButtonState {
     IDLE, LOADING, SUCCESS, FAILIURE
 }
 
-enum class ButtonType {
+enum class SSButtonType {
     ROUNDED_PROGRESS, WHEEL, ZOOM_IN_OUT_PROGRESS, CLOCK, SPIRAL
 }

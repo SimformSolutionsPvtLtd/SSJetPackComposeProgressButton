@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SSLoadingButtonAndroid</string>
+    <string name="right_icon">Right Icon</string>
+    <string name="left_icon">Left Icon</string>
+    <string name="with_text">With Text</string>
+    <string name="on_success">On Success</string>
+    <string name="on_failure">On Failure</string>
+
 </resources>
