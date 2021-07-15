@@ -14,7 +14,12 @@ import com.simform.ssloadingbuttonandroid.utils.*
 
 object ClockLoadingBar {
     @Composable
-    fun Clock(modifier: Modifier = Modifier, color: Color, minHeightWidth: Dp) {
+    fun Clock(
+        modifier: Modifier = Modifier,
+        minuteColor: Color,
+        hourColor: Color,
+        minHeightWidth: Dp
+    ) {
         val progressRotation = ssRepeatedFloatAnimation(
             initialValue = zeroFloat,
             targetValue = oneFloat,
@@ -34,9 +39,12 @@ object ClockLoadingBar {
                     drawLine(
                         strokeWidth = six.dp.toPx(),
                         cap = StrokeCap.Round,
-                        color = color,
+                        color = minuteColor,
                         start = middle,
-                        end = Offset(size.minDimension / two, (minHeightWidth/ two - ten.dp).toPx())
+                        end = Offset(
+                            size.minDimension / two,
+                            (minHeightWidth / two - ten.dp).toPx()
+                        )
                     )
                 }
             )
@@ -47,9 +55,12 @@ object ClockLoadingBar {
                     drawLine(
                         strokeWidth = six.dp.toPx(),
                         cap = StrokeCap.Round,
-                        color = Color.Black,
+                        color = hourColor,
                         start = middle,
-                        end = Offset(size.minDimension / two, (minHeightWidth/ two - thirteen.dp).toPx())
+                        end = Offset(
+                            size.minDimension / two,
+                            (minHeightWidth / two - twelve.dp).toPx()
+                        )
                     )
                 }
             )

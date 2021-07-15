@@ -22,12 +22,20 @@ import com.simform.ssloadingbuttonandroid.utils.zeroFloat
 
 object PrintLoadingBar {
     @Composable
-    fun printLoadingBar(type: SSButtonType, progressAlpha: Float, assetColor: Color, minHeightWidth: Dp, durationMillis: Int) {
+    fun printLoadingBar(
+        type: SSButtonType,
+        progressAlpha: Float,
+        assetColor: Color,
+        minHeightWidth: Dp,
+        durationMillis: Int,
+        hourHandColor: Color
+    ) {
         when (type) {
             SSButtonType.ROUNDED_PROGRESS -> {
                 CircularProgressIndicator(
                     modifier = Modifier
-                        .graphicsLayer(alpha = progressAlpha).size(minHeightWidth- ten.dp),
+                        .graphicsLayer(alpha = progressAlpha)
+                        .size(minHeightWidth - ten.dp),
                     color = assetColor,
                     strokeWidth = three.dp
                 )
@@ -39,7 +47,13 @@ object PrintLoadingBar {
                     modifier = Modifier
                         .size(minHeightWidth - ten.dp)
                         .graphicsLayer { alpha = progressAlpha }
-                        .rotate(ssRepeatedFloatAnimation(zeroFloat, threeSixtyFloat, durationMillis)),
+                        .rotate(
+                            ssRepeatedFloatAnimation(
+                                zeroFloat,
+                                threeSixtyFloat,
+                                durationMillis
+                            )
+                        ),
                     tint = assetColor
                 )
             }
@@ -47,14 +61,24 @@ object PrintLoadingBar {
                 CircularProgressIndicator(
                     modifier = Modifier
                         .graphicsLayer(alpha = progressAlpha)
-                        .size(ssRepeatedDpAnimation(initialValue = minHeightWidth - ten.dp, targetValue = ten.dp, durationMillis = durationMillis)),
+                        .size(
+                            ssRepeatedDpAnimation(
+                                initialValue = minHeightWidth - ten.dp,
+                                targetValue = ten.dp,
+                                durationMillis = durationMillis
+                            )
+                        ),
                     color = assetColor,
                     strokeWidth = three.dp
                 )
             }
             SSButtonType.CLOCK -> {
-                Clock(modifier = Modifier
-                    .graphicsLayer { alpha = progressAlpha }, color = assetColor, minHeightWidth = minHeightWidth
+                Clock(
+                    modifier = Modifier
+                        .graphicsLayer { alpha = progressAlpha },
+                    minuteColor = assetColor,
+                    minHeightWidth = minHeightWidth,
+                    hourColor = hourHandColor
                 )
             }
             SSButtonType.SPIRAL -> {
@@ -64,7 +88,13 @@ object PrintLoadingBar {
                     modifier = Modifier
                         .size(minHeightWidth - ten.dp)
                         .graphicsLayer { alpha = progressAlpha }
-                        .rotate(ssRepeatedFloatAnimation(initialValue = threeSixtyFloat, targetValue = zeroFloat, durationMillis = durationMillis)),
+                        .rotate(
+                            ssRepeatedFloatAnimation(
+                                initialValue = threeSixtyFloat,
+                                targetValue = zeroFloat,
+                                durationMillis = durationMillis
+                            )
+                        ),
                     tint = assetColor
                 )
             }
