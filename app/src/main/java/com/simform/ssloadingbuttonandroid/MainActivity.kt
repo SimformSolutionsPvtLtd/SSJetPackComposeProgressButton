@@ -9,34 +9,28 @@ import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.simform.ssloadingbuttonandroid.ssbutton.SSLoadingButton.ssLoadingButton
 import com.simform.ssloadingbuttonandroid.ssbutton.SSButtonState
 import com.simform.ssloadingbuttonandroid.ssbutton.SSButtonType
+import com.simform.ssloadingbuttonandroid.ssbutton.SSLoadingButton.ssLoadingButton
 import com.simform.ssloadingbuttonandroid.utils.*
-import com.simform.ssloadingbuttonandroid.ssbutton.Animation.ssRepeatedColorAnimation
-import com.simform.ssloadingbuttonandroid.ssbutton.Animation.ssRepeatedFloatAnimation
-
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +51,8 @@ fun Greeting() {
     var spiralState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var ssTextButtonState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var textWithRightButton: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
-    var textWithIconState: SSButtonState by remember {
-        mutableStateOf(SSButtonState.IDLE)
-    }
+    var textWithIconState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
+    var blinkingIcon: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -72,7 +65,12 @@ fun Greeting() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            Row() {
+            Row(
+                Modifier
+                    .padding(zero.dp, zero.dp, zero.dp, fourty.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
                 Button(
                     onClick = {
                         roundedProgressState = SSButtonState.SUCCESS
@@ -84,9 +82,12 @@ fun Greeting() {
                         ssTextButtonState = SSButtonState.SUCCESS
                         textWithIconState = SSButtonState.SUCCESS
                         textWithRightButton = SSButtonState.SUCCESS
+                        blinkingIcon = SSButtonState.SUCCESS
                     },
-                    modifier = Modifier.padding(six.dp),
-                    elevation = ButtonDefaults.elevation()
+                    modifier = Modifier
+                        .padding(six.dp)
+                        .weight(oneFloat),
+                    elevation = ButtonDefaults.elevation(),
                 ) {
                     Text(text = stringResource(id = R.string.on_success))
                 }
@@ -101,8 +102,11 @@ fun Greeting() {
                         ssTextButtonState = SSButtonState.FAILIURE
                         textWithIconState = SSButtonState.FAILIURE
                         textWithRightButton = SSButtonState.FAILIURE
+                        blinkingIcon = SSButtonState.FAILIURE
                     },
-                    modifier = Modifier.padding(six.dp),
+                    modifier = Modifier
+                        .padding(six.dp)
+                        .weight(1f),
                     elevation = ButtonDefaults.elevation()
                 ) {
                     Text(text = stringResource(id = R.string.on_failure))
@@ -110,42 +114,15 @@ fun Greeting() {
             }
         }
         item {
-            Button(
-                onClick = {},
-                modifier = Modifier
-                    .padding(10.dp)
-                    .fillMaxWidth(),
-                shape = RoundedCornerShape(fifty)
-            ) {
-                Icon(
-                    Icons.Default.FavoriteBorder,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .graphicsLayer(
-                            scaleX = ssRepeatedFloatAnimation(
-                                oneFloat, oneHalfFloat,
-                                thousand
-                            ), scaleY = ssRepeatedFloatAnimation(
-                                oneFloat, oneHalfFloat,
-                                thousand
-                            )
-                        )
-                        .padding(end = six.dp),
-                    tint = ssRepeatedColorAnimation(Color.Red, Color.White, thousand)
-                )
-            }
-            //**********************************SSLoadingButton Start from here ******************************************//
             ssLoadingButton(
-                assetColor = Color.White,
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+                assetColor = Color.Red,
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Red)),
                 type = SSButtonType.ROUNDED_PROGRESS,
-                onClick = {
-                    roundedProgressState = SSButtonState.LOADING
-                },
-                buttonState = roundedProgressState,
+                onClick = { roundedProgressState2 = SSButtonState.LOADING },
+                buttonState = roundedProgressState2,
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
-                leftImagePainter = rememberVectorPainter(image = Icons.Default.Person)
+                leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
             ssLoadingButton(
                 assetColor = colorResource(id = R.color.dark_green),
@@ -155,61 +132,61 @@ fun Greeting() {
                     SolidColor(colorResource(id = R.color.dark_green))
                 ),
                 type = SSButtonType.WHEEL,
-                onClick = {
-                    wheelState = SSButtonState.LOADING
-                },
+                onClick = { wheelState = SSButtonState.LOADING },
                 buttonState = wheelState,
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
-                leftImagePainter = rememberVectorPainter(image = Icons.Default.Person)
+                leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
             ssLoadingButton(
                 assetColor = Color.Blue,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Blue)),
                 type = SSButtonType.ZOOM_IN_OUT_PROGRESS,
-                onClick = {
-                    zoomInOutState = SSButtonState.LOADING
-                },
+                onClick = { zoomInOutState = SSButtonState.LOADING },
                 buttonState = zoomInOutState,
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
-                leftImagePainter = rememberVectorPainter(image = Icons.Default.Person)
+                leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
             ssLoadingButton(
                 Color.Red,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Red)),
                 type = SSButtonType.CLOCK,
-                onClick = {
-                    clockState = SSButtonState.LOADING
-                },
+                onClick = { clockState = SSButtonState.LOADING },
                 buttonState = clockState,
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
-                leftImagePainter = rememberVectorPainter(image = Icons.Default.Person)
-            )
-
-            ssLoadingButton(
-                assetColor = Color.Red,
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-                buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Red)),
-                type = SSButtonType.ROUNDED_PROGRESS,
-                onClick = {
-                    roundedProgressState2 = SSButtonState.LOADING
-                },
-                buttonState = roundedProgressState2,
-                width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
-                leftImagePainter = rememberVectorPainter(image = Icons.Default.Person)
+                leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
             ssLoadingButton(
                 assetColor = Color.Blue,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Blue)),
                 type = SSButtonType.SPIRAL,
-                onClick = {
-                    spiralState = SSButtonState.LOADING
-                },
+                onClick = { spiralState = SSButtonState.LOADING },
                 buttonState = spiralState,
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
+                leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
+            )
+            ssLoadingButton(
+                assetColor = Color.White,
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+                type = SSButtonType.ROUNDED_PROGRESS,
+                onClick = { roundedProgressState = SSButtonState.LOADING },
+                buttonState = roundedProgressState,
+                width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Person)
+            )
+            ssLoadingButton(
+                assetColor = Color.Yellow,
+                type = SSButtonType.CLOCK,
+                onClick = { blinkingIcon = SSButtonState.LOADING },
+                buttonState = blinkingIcon,
+                width = COMMON_WIDTH.dp,
+                height = COMMON_HEIGHT.dp,
+                blinkingIcon = true,
+                leftImagePainter = rememberVectorPainter(image = Icons.Default.FavoriteBorder),
+                padding = PaddingValues(six.dp),
+                hourHandColor = Color.Red
             )
             ssLoadingButton(
                 assetColor = Color.White,
@@ -219,9 +196,7 @@ fun Greeting() {
                     SolidColor(colorResource(id = R.color.yellow))
                 ),
                 type = SSButtonType.ZOOM_IN_OUT_PROGRESS,
-                onClick = {
-                    ssTextButtonState = SSButtonState.LOADING
-                },
+                onClick = { ssTextButtonState = SSButtonState.LOADING },
                 buttonState = ssTextButtonState,
                 width = COMMON_WIDTH.dp,
                 height = COMMON_HEIGHT.dp,
@@ -229,21 +204,23 @@ fun Greeting() {
                 text = stringResource(id = R.string.with_text),
                 fontStyle = FontStyle.Italic,
                 fontSize = 16.sp,
-                textModifier = Modifier.padding(six.dp)
+                fontFamily = FontFamily.Monospace,
+                textModifier = Modifier.padding(six.dp),
             )
             ssLoadingButton(
                 assetColor = Color.White,
                 type = SSButtonType.WHEEL,
-                onClick = {
-                    textWithIconState = SSButtonState.LOADING
-                },
+                onClick = { textWithIconState = SSButtonState.LOADING },
                 buttonState = textWithIconState,
                 width = COMMON_WIDTH.dp,
                 height = COMMON_HEIGHT.dp,
-                leftImagePainter = rememberVectorPainter(image = Icons.Default.Person),
-                text = stringResource(id = R.string.left_icon)
+                leftImagePainter = rememberVectorPainter(image = Icons.Default.Star),
+                text = stringResource(id = R.string.left_icon),
+                fontFamily = FontFamily.SansSerif,
+                textModifier = Modifier.padding(six.dp),
+                blinkingIcon = true,
+                padding = PaddingValues(six.dp)
             )
-
             ssLoadingButton(
                 assetColor = Color.White,
                 type = SSButtonType.SPIRAL,
@@ -251,12 +228,13 @@ fun Greeting() {
                 buttonState = textWithRightButton,
                 width = COMMON_WIDTH.dp,
                 height = COMMON_HEIGHT.dp,
-                rightImagePainter = rememberVectorPainter(image = Icons.Default.Person),
+                rightImagePainter = rememberVectorPainter(image = Icons.Default.Star),
                 text = stringResource(id = R.string.right_icon),
+                fontFamily = FontFamily.Serif,
+                textModifier = Modifier.padding(six.dp),
                 padding = PaddingValues(six.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.teal_700))
             )
-
         }
     }
 }
