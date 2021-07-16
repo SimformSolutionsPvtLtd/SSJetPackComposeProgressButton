@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.R
+import com.simform.ssloadingbuttonlibrary.R
 import com.simform.ssloadingbuttonlibrary.utils.ten
 import com.simform.ssloadingbuttonlibrary.utils.three
 import com.simform.ssloadingbuttonlibrary.utils.threeSixtyFloat
