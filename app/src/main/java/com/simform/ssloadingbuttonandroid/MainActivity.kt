@@ -7,14 +7,26 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,22 +39,28 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.simform.ssloadingbuttonandroid.ssbutton.SSButtonState
-import com.simform.ssloadingbuttonandroid.ssbutton.SSButtonType
-import com.simform.ssloadingbuttonandroid.ssbutton.SSLoadingButton.ssLoadingButton
-import com.simform.ssloadingbuttonandroid.utils.*
+import com.simform.ssloadingbuttonandroid.utils.COMMON_HEIGHT
+import com.simform.ssloadingbuttonandroid.utils.COMMON_WIDTH
+import com.simform.ssloadingbuttonandroid.utils.forty
+import com.simform.ssloadingbuttonandroid.utils.oneFloat
+import com.simform.ssloadingbuttonandroid.utils.six
+import com.simform.ssloadingbuttonandroid.utils.two
+import com.simform.ssloadingbuttonandroid.utils.zero
+import com.simform.ssloadingbuttonlibrary.SSButtonState
+import com.simform.ssloadingbuttonlibrary.SSButtonType
+import com.simform.ssloadingbuttonlibrary.SSLoadingButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Greeting()
+            SSLoadingButtonExample()
         }
     }
 }
 
 @Composable
-fun Greeting() {
+fun SSLoadingButtonExample() {
     var roundedProgressState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var wheelState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var zoomInOutState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
@@ -53,6 +71,7 @@ fun Greeting() {
     var textWithRightButton: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var textWithIconState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var blinkingIcon: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -64,10 +83,11 @@ fun Greeting() {
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        //Two button at top for fire success and failure
         item {
             Row(
                 Modifier
-                    .padding(zero.dp, zero.dp, zero.dp, fourty.dp)
+                    .padding(zero.dp, zero.dp, zero.dp, forty.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
@@ -113,18 +133,19 @@ fun Greeting() {
                 }
             }
         }
+        //Various example of SSLoadingButton
         item {
-            ssLoadingButton(
+            SSLoadingButton(
                 assetColor = Color.Red,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Red)),
-                type = SSButtonType.ROUNDED_PROGRESS,
+                type = SSButtonType.CIRCLE,
                 onClick = { roundedProgressState2 = SSButtonState.LOADING },
                 buttonState = roundedProgressState2,
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
-            ssLoadingButton(
+            SSLoadingButton(
                 assetColor = colorResource(id = R.color.dark_green),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(
@@ -137,18 +158,18 @@ fun Greeting() {
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
-            ssLoadingButton(
+            SSLoadingButton(
                 assetColor = Color.Blue,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Blue)),
-                type = SSButtonType.ZOOM_IN_OUT_PROGRESS,
+                type = SSButtonType.ZOOM_IN_OUT_CIRCLE,
                 onClick = { zoomInOutState = SSButtonState.LOADING },
                 buttonState = zoomInOutState,
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
-            ssLoadingButton(
-                Color.Red,
+            SSLoadingButton(
+                assetColor = Color.Red,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Red)),
                 type = SSButtonType.CLOCK,
@@ -157,7 +178,7 @@ fun Greeting() {
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
-            ssLoadingButton(
+            SSLoadingButton(
                 assetColor = Color.Blue,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Blue)),
@@ -167,16 +188,16 @@ fun Greeting() {
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
-            ssLoadingButton(
+            SSLoadingButton(
                 assetColor = Color.White,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
-                type = SSButtonType.ROUNDED_PROGRESS,
+                type = SSButtonType.CIRCLE,
                 onClick = { roundedProgressState = SSButtonState.LOADING },
                 buttonState = roundedProgressState,
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Person)
             )
-            ssLoadingButton(
+            SSLoadingButton(
                 assetColor = Color.Yellow,
                 type = SSButtonType.CLOCK,
                 onClick = { blinkingIcon = SSButtonState.LOADING },
@@ -188,14 +209,14 @@ fun Greeting() {
                 padding = PaddingValues(six.dp),
                 hourHandColor = Color.Red
             )
-            ssLoadingButton(
+            SSLoadingButton(
                 assetColor = Color.White,
                 colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.yellow)),
                 buttonBorderStroke = BorderStroke(
                     two.dp,
                     SolidColor(colorResource(id = R.color.yellow))
                 ),
-                type = SSButtonType.ZOOM_IN_OUT_PROGRESS,
+                type = SSButtonType.ZOOM_IN_OUT_CIRCLE,
                 onClick = { ssTextButtonState = SSButtonState.LOADING },
                 buttonState = ssTextButtonState,
                 width = COMMON_WIDTH.dp,
@@ -207,7 +228,7 @@ fun Greeting() {
                 fontFamily = FontFamily.Monospace,
                 textModifier = Modifier.padding(six.dp),
             )
-            ssLoadingButton(
+            SSLoadingButton(
                 assetColor = Color.White,
                 type = SSButtonType.WHEEL,
                 onClick = { textWithIconState = SSButtonState.LOADING },
@@ -221,7 +242,7 @@ fun Greeting() {
                 blinkingIcon = true,
                 padding = PaddingValues(six.dp)
             )
-            ssLoadingButton(
+            SSLoadingButton(
                 assetColor = Color.White,
                 type = SSButtonType.SPIRAL,
                 onClick = { textWithRightButton = SSButtonState.LOADING },
@@ -242,5 +263,5 @@ fun Greeting() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    Greeting()
+    SSLoadingButtonExample()
 }

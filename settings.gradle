@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "SSLoadingButtonAndroid"
 include ':app'
+include ':ssloadingbuttonlibrary'
