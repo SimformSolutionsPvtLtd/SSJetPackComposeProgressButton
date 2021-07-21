@@ -1,4 +1,4 @@
-package com.simform.ssloadingbuttonlibrary
+package com.simform.ssjetpackcomposeprogressbuttonlibrary
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
@@ -9,15 +9,15 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.simform.ssloadingbuttonlibrary.utils.HOUR_DURATION
-import com.simform.ssloadingbuttonlibrary.utils.MINUTE_DURATION
-import com.simform.ssloadingbuttonlibrary.utils.oneFloat
-import com.simform.ssloadingbuttonlibrary.utils.six
-import com.simform.ssloadingbuttonlibrary.utils.ten
-import com.simform.ssloadingbuttonlibrary.utils.threeSixtyFloat
-import com.simform.ssloadingbuttonlibrary.utils.twelve
-import com.simform.ssloadingbuttonlibrary.utils.two
-import com.simform.ssloadingbuttonlibrary.utils.zeroFloat
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.HOUR_DURATION
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.MINUTE_DURATION
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.oneFloat
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.six
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ten
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.threeSixtyFloat
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.twelve
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.two
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.zeroFloat
 
 @Composable
 fun ClockLoadingBar(

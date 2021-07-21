@@ -1,4 +1,4 @@
-package com.simform.ssloadingbuttonlibrary
+package com.simform.ssjetpackcomposeprogressbuttonlibrary
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.CircularProgressIndicator
@@ -11,11 +11,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.simform.ssloadingbuttonlibrary.R
-import com.simform.ssloadingbuttonlibrary.utils.ten
-import com.simform.ssloadingbuttonlibrary.utils.three
-import com.simform.ssloadingbuttonlibrary.utils.threeSixtyFloat
-import com.simform.ssloadingbuttonlibrary.utils.zeroFloat
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ten
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.three
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.threeSixtyFloat
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.zeroFloat
 
 @Composable
 fun PrintLoadingBar(

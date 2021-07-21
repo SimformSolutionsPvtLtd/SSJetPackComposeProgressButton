@@ -1,4 +1,4 @@
-package com.simform.ssloadingbuttonlibrary.utils
+package com.simform.ssjetpackcomposeprogressbuttonlibrary.utils
 
 const val zeroFloat = 0f
 const val oneFloat = 1f

@@ -1,4 +1,4 @@
-package com.simform.ssloadingbuttonandroid
+package com.simform.ssjetpackcomposeprogressbutton
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -41,16 +41,16 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.simform.ssloadingbuttonandroid.utils.COMMON_HEIGHT
-import com.simform.ssloadingbuttonandroid.utils.COMMON_WIDTH
-import com.simform.ssloadingbuttonandroid.utils.forty
-import com.simform.ssloadingbuttonandroid.utils.oneFloat
-import com.simform.ssloadingbuttonandroid.utils.six
-import com.simform.ssloadingbuttonandroid.utils.two
-import com.simform.ssloadingbuttonandroid.utils.zero
-import com.simform.ssloadingbuttonlibrary.SSButtonState
-import com.simform.ssloadingbuttonlibrary.SSButtonType
-import com.simform.ssloadingbuttonlibrary.SSLoadingButton
+import com.simform.ssjetpackcomposeprogressbutton.utils.COMMON_HEIGHT
+import com.simform.ssjetpackcomposeprogressbutton.utils.COMMON_WIDTH
+import com.simform.ssjetpackcomposeprogressbutton.utils.forty
+import com.simform.ssjetpackcomposeprogressbutton.utils.oneFloat
+import com.simform.ssjetpackcomposeprogressbutton.utils.six
+import com.simform.ssjetpackcomposeprogressbutton.utils.two
+import com.simform.ssjetpackcomposeprogressbutton.utils.zero
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.SSButtonState
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.SSButtonType
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.SSJetPackComposeProgressButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,7 +137,7 @@ fun SSLoadingButtonExample() {
         }
         //Various example of SSLoadingButton
         item {
-            SSLoadingButton(
+            SSJetPackComposeProgressButton(
                 assetColor = Color.Red,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Red)),
@@ -147,7 +147,7 @@ fun SSLoadingButtonExample() {
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
-            SSLoadingButton(
+            SSJetPackComposeProgressButton(
                 assetColor = colorResource(id = R.color.dark_green),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(
@@ -160,7 +160,7 @@ fun SSLoadingButtonExample() {
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
-            SSLoadingButton(
+            SSJetPackComposeProgressButton(
                 assetColor = Color.Blue,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Blue)),
@@ -170,7 +170,7 @@ fun SSLoadingButtonExample() {
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
-            SSLoadingButton(
+            SSJetPackComposeProgressButton(
                 assetColor = Color.Red,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Red)),
@@ -180,7 +180,7 @@ fun SSLoadingButtonExample() {
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
-            SSLoadingButton(
+            SSJetPackComposeProgressButton(
                 assetColor = Color.Blue,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                 buttonBorderStroke = BorderStroke(two.dp, SolidColor(Color.Blue)),
@@ -190,7 +190,7 @@ fun SSLoadingButtonExample() {
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
             )
-            SSLoadingButton(
+            SSJetPackComposeProgressButton(
                 assetColor = Color.White,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
                 type = SSButtonType.CIRCLE,
@@ -199,7 +199,7 @@ fun SSLoadingButtonExample() {
                 width = COMMON_WIDTH.dp, height = COMMON_HEIGHT.dp, padding = PaddingValues(six.dp),
                 leftImagePainter = rememberVectorPainter(image = Icons.Default.Person)
             )
-            SSLoadingButton(
+            SSJetPackComposeProgressButton(
                 assetColor = Color.Yellow,
                 type = SSButtonType.CLOCK,
                 onClick = { blinkingIcon = SSButtonState.LOADING },
@@ -211,7 +211,7 @@ fun SSLoadingButtonExample() {
                 padding = PaddingValues(six.dp),
                 hourHandColor = Color.Red
             )
-            SSLoadingButton(
+            SSJetPackComposeProgressButton(
                 assetColor = Color.White,
                 colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.yellow)),
                 buttonBorderStroke = BorderStroke(
@@ -230,7 +230,7 @@ fun SSLoadingButtonExample() {
                 fontFamily = FontFamily.Monospace,
                 textModifier = Modifier.padding(six.dp),
             )
-            SSLoadingButton(
+            SSJetPackComposeProgressButton(
                 assetColor = Color.White,
                 type = SSButtonType.WHEEL,
                 onClick = { textWithIconState = SSButtonState.LOADING },
@@ -245,7 +245,7 @@ fun SSLoadingButtonExample() {
                 padding = PaddingValues(six.dp),
                 colors = ButtonDefaults.buttonColors( backgroundColor = colorResource(id = R.color.light_blue))
             )
-            SSLoadingButton(
+            SSJetPackComposeProgressButton(
                 assetColor = Color.White,
                 type = SSButtonType.SPIRAL,
                 onClick = { textWithRightButton = SSButtonState.LOADING },

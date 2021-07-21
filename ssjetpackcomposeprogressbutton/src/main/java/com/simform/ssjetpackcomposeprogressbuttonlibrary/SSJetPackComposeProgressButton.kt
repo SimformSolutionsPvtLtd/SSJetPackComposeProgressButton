@@ -1,4 +1,4 @@
-package com.simform.ssloadingbuttonlibrary
+package com.simform.ssjetpackcomposeprogressbuttonlibrary
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
@@ -34,14 +34,14 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.simform.ssloadingbuttonlibrary.utils.LAUNCH_EFFECT_KEY
-import com.simform.ssloadingbuttonlibrary.utils.fifty
-import com.simform.ssloadingbuttonlibrary.utils.oneFloat
-import com.simform.ssloadingbuttonlibrary.utils.ten
-import com.simform.ssloadingbuttonlibrary.utils.thousand
-import com.simform.ssloadingbuttonlibrary.utils.twenty
-import com.simform.ssloadingbuttonlibrary.utils.two
-import com.simform.ssloadingbuttonlibrary.utils.zeroFloat
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.LAUNCH_EFFECT_KEY
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.fifty
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.oneFloat
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ten
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.thousand
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.twenty
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.two
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.zeroFloat
 import kotlinx.coroutines.delay
 
 /**
@@ -80,7 +80,7 @@ import kotlinx.coroutines.delay
  */
 
 @Composable
-fun SSLoadingButton(
+fun SSJetPackComposeProgressButton(
     type: SSButtonType,
     width: Dp,
     height: Dp,
