@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -31,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -107,9 +109,9 @@ fun SSLoadingButtonExample() {
                     modifier = Modifier
                         .padding(six.dp)
                         .weight(oneFloat),
-                    elevation = ButtonDefaults.elevation(),
+                    elevation = ButtonDefaults.elevation(), colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.light_blue))
                 ) {
-                    Text(text = stringResource(id = R.string.on_success))
+                    Text(text = stringResource(id = R.string.on_success), color = Color.White )
                 }
                 Button(
                     onClick = {
@@ -127,9 +129,9 @@ fun SSLoadingButtonExample() {
                     modifier = Modifier
                         .padding(six.dp)
                         .weight(1f),
-                    elevation = ButtonDefaults.elevation()
+                    elevation = ButtonDefaults.elevation(), colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.light_blue))
                 ) {
-                    Text(text = stringResource(id = R.string.on_failure))
+                    Text(text = stringResource(id = R.string.on_failure), color = Color.White)
                 }
             }
         }
@@ -240,7 +242,8 @@ fun SSLoadingButtonExample() {
                 fontFamily = FontFamily.SansSerif,
                 textModifier = Modifier.padding(six.dp),
                 blinkingIcon = true,
-                padding = PaddingValues(six.dp)
+                padding = PaddingValues(six.dp),
+                colors = ButtonDefaults.buttonColors( backgroundColor = colorResource(id = R.color.light_blue))
             )
             SSLoadingButton(
                 assetColor = Color.White,
