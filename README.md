@@ -15,7 +15,7 @@
 
 | On Success | On Failure |
 |--|--|
-| ![](https://github.com/SimformSolutionsPvtLtd/android-morphing-button-jetpack-compose/blob/feature/UNT-T5677_readme_and_licenece_update/gif/success.gif) | ![](https://github.com/SimformSolutionsPvtLtd/android-morphing-button-jetpack-compose/blob/feature/UNT-T5677_readme_and_licenece_update/gif/failure.gif) |
+| ![](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/success.gif) | ![](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/failure.gif) |
 
 ## Installation
 1. Add it in your root build.gradle at the end of repositories:
@@ -33,7 +33,7 @@
 
 	```groovy
 	dependencies {
-	        implementation 'com.github.SimformSolutionsPvtLtd:android-morphing-button-jetpack-compose:Tag'
+	        implementation 'com.github.SimformSolutionsPvtLtd:SSJetPackComposeProgressButton:1.0.0'
 	}
 	```
 
@@ -42,7 +42,7 @@
 
 	```kotlin
         var submitButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
-        SSLoadingButton(
+        SSJetPackComposeProgressButton(
             type = SSButtonType.CLOCK,
             width = 300.dp,
             height = 50.dp,
@@ -120,7 +120,7 @@ Copyright 2021 Simform Solutions
 ```
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-   [git-repo-url]: <https://github.com/SimformSolutionsPvtLtd/android-morphing-button-jetpack-compose.git>
-   [stargazers]: <https://github.com/SimformSolutionsPvtLtd/android-morphing-button-jetpack-compose/stargazers>
-   [Contributing Guide]: <https://github.com/SimformSolutionsPvtLtd/android-morphing-button-jetpack-compose/blob/main/CONTRIBUTING.md>
-   [GitHub Issues]: <https://github.com/SimformSolutionsPvtLtd/android-morphing-button-jetpack-compose/issues>
+   [git-repo-url]: <https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton.git>
+   [stargazers]: <https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/stargazers>
+   [Contributing Guide]: <https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/CONTRIBUTING.md>
+   [GitHub Issues]: <https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/issues>
