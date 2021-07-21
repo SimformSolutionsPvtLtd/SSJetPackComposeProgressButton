@@ -1,4 +1,4 @@
-package com.simform.ssloadingbuttonlibrary
+package com.simform.ssjetpackcomposeprogressbuttonlibrary
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearEasing

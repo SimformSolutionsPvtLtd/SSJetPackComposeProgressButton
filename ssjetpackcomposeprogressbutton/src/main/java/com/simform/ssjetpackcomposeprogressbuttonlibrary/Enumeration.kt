@@ -1,4 +1,4 @@
-package com.simform.ssloadingbuttonlibrary
+package com.simform.ssjetpackcomposeprogressbuttonlibrary
 
 enum class SSButtonState {
     IDLE, LOADING, SUCCESS, FAILIURE

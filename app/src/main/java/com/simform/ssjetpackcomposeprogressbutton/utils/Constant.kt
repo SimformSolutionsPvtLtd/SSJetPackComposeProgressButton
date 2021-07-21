@@ -1,4 +1,4 @@
-package com.simform.ssloadingbuttonandroid.utils
+package com.simform.ssjetpackcomposeprogressbutton.utils
 
 
 const val COMMON_WIDTH = 370
