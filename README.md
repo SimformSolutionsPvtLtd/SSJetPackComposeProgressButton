@@ -1,7 +1,7 @@
 # SSJetPackComposeProgressButton
 ### _SSJetPackComposeProgressButton is an elegant button with a different loading animations._
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)][git-repo-url] [![](https://jitpack.io/v/SimformSolutionsPvtLtd/android-morphing-button-jetpack-compose.svg)](https://jitpack.io/#SimformSolutionsPvtLtd/android-morphing-button-jetpack-compose) [![Kotlin Version](https://img.shields.io/badge/Kotlin-v1.5.10-blue.svg)](https://kotlinlang.org) [![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=flat)](https://www.android.com/) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)][git-repo-url] [![](https://jitpack.io/v/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton.svg)](https://jitpack.io/#SimformSolutionsPvtLtd/SSJetPackComposeProgressButton) [![Kotlin Version](https://img.shields.io/badge/Kotlin-v1.5.10-blue.svg)](https://kotlinlang.org) [![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=flat)](https://www.android.com/) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 
 ## Features
 - Android’s modern toolkit - Jetpack Compose support.
@@ -33,7 +33,7 @@
 
 	```groovy
 	dependencies {
-	        implementation 'com.github.SimformSolutionsPvtLtd:SSJetPackComposeProgressButton:1.0.0'
+	        implementation 'com.github.SimformSolutionsPvtLtd:SSJetPackComposeProgressButton:1.0.4'
 	}
 	```
 
