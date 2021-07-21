@@ -6,6 +6,6 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "SSLoadingButtonAndroid"
+rootProject.name = "SSJetPackComposeProgressButton"
 include ':app'
-include ':ssloadingbuttonlibrary'
+include ':ssjetpackcomposeprogressbutton'
