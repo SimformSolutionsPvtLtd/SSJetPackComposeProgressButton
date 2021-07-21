@@ -4,6 +4,20 @@ plugins {
     id 'maven-publish'
 }
 
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.simform.ssloadingbuttonlibrary'
+                artifactId = 'ssloadingbuttonlibrary'
+                version = '1.0.0'
+            }
+        }
+    }
+}
+
 android {
     compileSdk 30
     buildToolsVersion "30.0.3"
@@ -31,8 +45,8 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
         useIR = true
+        jvmTarget = '11'
     }
 
     buildFeatures {
