@@ -5,10 +5,10 @@
 
 ## Features
 - Android’s modern toolkit - Jetpack Compose support.
-- Newly designed loading animation make your app atterective.
-- Blinking icon button for your hot-feature
-- Button with text, right and left icon
-- Different types of state makes it easy to manage button. (Idle, Loading, Success, failure)
+- Newly designed loading animation make your app attractive.
+- Blinking icon button for your hot-feature.
+- Button with text, right and left icon.
+- Different types of state makes it easy to manage button. (Idle, Loading, Success, Failure)
 - Fully customized button (Corner radius, background, colors, animation speed etc.)
 
 # 🎬 Preview
