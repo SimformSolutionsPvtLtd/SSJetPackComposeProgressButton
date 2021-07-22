@@ -91,7 +91,58 @@
 | `fontSize` | The size of glyphs to use when painting the text. | `TextUnit.Unspecified` |
 | `fontStyle` | The typeface variant to use when drawing the letters (e.g., italic). | `null` |
 | `fontFamily` | The font family to be used when rendering the text. | `null` |
+| `fontWeight` | The typeface thickness to use when painting the text (e.g., [FontWeight.Bold]). | `null` |
 | `hourHandColor` | Color will be apply to hour hand in clock type animation only. | `Color.Black` |
+| `customLoadingIconPainter` | painter [Painter] to draw your custom loading icon. | `painterResource(id = R.drawable.simform_logo)` |
+| `customLoadingEffect` | Custom loading animation type like roation, zoom in out etc. | `SSCustomLoadingEffect( rotation = false, zoomInOut = false, colorChanger = false)` |
+| `customLoadingPadding` | Spacing between button border and loading icon. | `0` |
+
+## Customization
+* You can customize loading icon and animation effect according to your requirement.You can apply multiple animation effect from roationm, zoom-in-out and color changer.
+
+	```kotlin
+        var submitButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
+        SSJetPackComposeProgressButton(
+            type = SSButtonType.CLOCK,
+            width = 300.dp,
+            height = 50.dp,
+            onClick = {
+                //Perform action on click of button and make it state to LOADING
+                submitButtonState = SSButtonState.LOADING
+            },
+            assetColor = Color.Red,
+            buttonState = submitButtonState,
+            successIconPainter = painterResource(id = R.drawable.custom_success),
+            failureIconPainter = painterResource(id = R.drawable.custom_fail),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+            padding = PaddingValues(six.dp),
+            text = stringResource(id = R.string.simform),
+            textModifier = Modifier.padding(ten.dp),
+            fontWeight = FontWeight.Bold,
+            leftImagePainter = painterResource(id = R.drawable.simform_logo),
+            buttonBorderStroke = BorderStroke(two.dp, colorResource(id = R.color.pink)),
+            customLoadingIconPainter = painterResource(id = R.drawable.simform_logo),
+            customLoadingEffect = SSCustomLoadingEffect(
+                rotation = false,
+                zoomInOut = true,
+                colorChanger = false
+            )
+        )
+	```
+	```kotlin
+	    // On Success change submitButtonState to success state
+        submitButtonState = SSButtonState.SUCCESS
+	```
+	```kotlin
+        // On Failure change submitButtonState to failure state
+        submitButtonState = SSButtonState.FAILIURE
+	```
+
+# 🎬 Custom loading animation
+
+| On Success | On Failure |
+|--|--|
+| ![](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/custom_success.gif) | ![](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/custom_fail.gif) |
 
 
 ## Find this library useful? ❤️
