@@ -5,5 +5,5 @@ enum class SSButtonState {
 }
 
 enum class SSButtonType {
-    CIRCLE, WHEEL, ZOOM_IN_OUT_CIRCLE, CLOCK, SPIRAL
+    CIRCLE, WHEEL, ZOOM_IN_OUT_CIRCLE, CLOCK, SPIRAL, CUSTOM
 }
