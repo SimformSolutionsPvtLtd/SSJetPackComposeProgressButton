@@ -11,8 +11,8 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.simform.ssloadingbuttonlibrary'
-                artifactId = 'ssloadingbuttonlibrary'
-                version = '1.0.0'
+                artifactId = 'ssjetpackcomposeprogressbutton'
+                version = '1.0.5'
             }
         }
     }

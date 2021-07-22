@@ -28,13 +28,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.LAUNCH_EFFECT_KEY
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ZERO
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.fifty
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.oneFloat
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ten
@@ -76,7 +79,11 @@ import kotlinx.coroutines.delay
  * @param fontSize The size of glyphs to use when painting the text. See [TextStyle.fontSize].
  * @param fontStyle The typeface variant to use when drawing the letters (e.g., italic).
  * @param fontFamily The font family to be used when rendering the text. See [TextStyle.fontFamily].
+ * @param fontWeight The typeface thickness to use when painting the text (e.g., [FontWeight.Bold]).
  * @param hourHandColor Color will be apply to hour hand in clock type animation only.
+ * @param customLoadingIconPainter painter [Painter] to draw your custom loading icon.
+ * @param customLoadingEffect custom loading animation type.
+ * @param customLoadingPadding spacing between button border and loading icon.
  */
 
 @Composable
@@ -105,7 +112,15 @@ fun SSJetPackComposeProgressButton(
     fontSize: TextUnit = TextUnit.Unspecified,
     fontStyle: FontStyle? = null,
     fontFamily: FontFamily? = null,
-    hourHandColor: Color = Color.Black
+    fontWeight: FontWeight? = null,
+    hourHandColor: Color = Color.Black,
+    customLoadingIconPainter: Painter = painterResource(id = R.drawable.simform_logo),
+    customLoadingEffect: SSCustomLoadingEffect = SSCustomLoadingEffect(
+        rotation = false,
+        zoomInOut = false,
+        colorChanger = false
+    ),
+    customLoadingPadding: Int = ZERO
 ) {
     var buttonWidth by remember { mutableStateOf(width) }
     var buttonHeight by remember { mutableStateOf(height) }
@@ -264,7 +279,8 @@ fun SSJetPackComposeProgressButton(
                         color = assetColor,
                         fontSize = fontSize,
                         fontStyle = fontStyle,
-                        fontFamily = fontFamily
+                        fontFamily = fontFamily,
+                        fontWeight = fontWeight
                     )
                 }
             }
@@ -339,7 +355,10 @@ fun SSJetPackComposeProgressButton(
             assetColor = assetColor,
             minHeightWidth = effectiveMinHeight,
             durationMillis = speedMillis,
-            hourHandColor = hourHandColor
+            hourHandColor = hourHandColor,
+            customLoadingIconPainter = customLoadingIconPainter,
+            customLoadingEffect = customLoadingEffect,
+            customLoadingPadding = customLoadingPadding
         )
     }
 }

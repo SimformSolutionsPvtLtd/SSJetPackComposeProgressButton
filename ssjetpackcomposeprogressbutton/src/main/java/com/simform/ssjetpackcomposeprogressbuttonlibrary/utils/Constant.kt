@@ -3,6 +3,7 @@ package com.simform.ssjetpackcomposeprogressbuttonlibrary.utils
 const val zeroFloat = 0f
 const val oneFloat = 1f
 const val threeSixtyFloat = 360f
+const val ZERO = 0
 const val two = 2
 const val three = 3
 const val six = 6
