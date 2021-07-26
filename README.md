@@ -1,7 +1,13 @@
 # SSJetPackComposeProgressButton
-### _SSJetPackComposeProgressButton is an elegant button with a different loading animations._
+### _SSJetPackComposeProgressButton is an elegant button with a different loading animations which makes your app attractive._
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)][git-repo-url] [![](https://jitpack.io/v/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton.svg)](https://jitpack.io/#SimformSolutionsPvtLtd/SSJetPackComposeProgressButton) [![Kotlin Version](https://img.shields.io/badge/Kotlin-v1.5.10-blue.svg)](https://kotlinlang.org) [![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=flat)](https://www.android.com/) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+
+# Jetpack Compose
+Jetpack Compose is Android’s modern toolkit for building native UI. It simplifies and accelerates UI development on Android. Quickly bring your app to life with less code, powerful tools, and intuitive Kotlin APIs.
+
+## How to get started
+Please get **Android Studio Arctic Fox 2020.3.1 Canary 4** or above [from here](https://developer.android.com/studio/preview/) and use **JDK 11** to build this project.
 
 ## Features
 - Android’s modern toolkit - Jetpack Compose support.
@@ -10,12 +16,19 @@
 - Button with text, right and left icon.
 - Different types of state makes it easy to manage button. (Idle, Loading, Success, Failure)
 - Fully customized button (Corner radius, background, colors, animation speed etc.)
+- Customize button loading animation with your logo and special animation effect.
 
 # 🎬 Preview
 
 | On Success | On Failure |
 |--|--|
 | ![](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/success.gif) | ![](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/failure.gif) |
+
+# 🎬 Customized loading animation
+
+| On Success | On Failure |
+|--|--|
+| ![](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/custom_success.gif) | ![](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/custom_fail.gif) |
 
 ## Installation
 1. Add it in your root build.gradle at the end of repositories:
@@ -33,41 +46,83 @@
 
 	```groovy
 	dependencies {
-	        implementation 'com.github.SimformSolutionsPvtLtd:SSJetPackComposeProgressButton:1.0.4'
+	        implementation 'com.github.SimformSolutionsPvtLtd:SSJetPackComposeProgressButton:1.0.5'
 	}
 	```
 
 ## Usage
-* Just use SSLoadingButton where you want button.
+* Just use SSJetPackComposeProgressButton where you want button.
 
 	```kotlin
-        var submitButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
-        SSJetPackComposeProgressButton(
-            type = SSButtonType.CLOCK,
-            width = 300.dp,
-            height = 50.dp,
-            onClick = {
-                //Perform action on click of button and make it state to LOADING
-                submitButtonState = SSButtonState.LOADING
-            },
-            assetColor = Color.Red,
-            buttonState = submitButtonState
+    var submitButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
+    SSJetPackComposeProgressButton(
+        type = SSButtonType.CLOCK,
+        width = 300.dp,
+        height = 50.dp,
+        onClick = {
+            //Perform action on click of button and make it's state to LOADING
+            submitButtonState = SSButtonState.LOADING
+        },
+        assetColor = Color.Red,
+        buttonState = submitButtonState
+    )
+	```
+	```kotlin
+	// On Success change submitButtonState to success state
+    submitButtonState = SSButtonState.SUCCESS
+	```
+	```kotlin
+    // On Failure change submitButtonState to failure state
+    submitButtonState = SSButtonState.FAILIURE
+	```
+
+## Customization
+* You can customize loading icon and animation effect according to your requirement.You can apply multiple animation effect from rotation, zoom-in-out and color changer too.
+
+	```kotlin
+    var submitButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
+    SSJetPackComposeProgressButton(
+        type = SSButtonType.CUSTOM,
+        width = 300.dp,
+        height = 50.dp,
+        onClick = {
+            //Perform action on click of button and make it's state to LOADING
+            submitButtonState = SSButtonState.LOADING
+        },
+        assetColor = Color.Red,
+        buttonState = submitButtonState,
+        successIconPainter = painterResource(id = R.drawable.custom_success),
+        failureIconPainter = painterResource(id = R.drawable.custom_fail),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+        padding = PaddingValues(six.dp),
+        text = stringResource(id = R.string.simform),
+        textModifier = Modifier.padding(ten.dp),
+        fontWeight = FontWeight.Bold,
+        leftImagePainter = painterResource(id = R.drawable.simform_logo),
+        buttonBorderStroke = BorderStroke(two.dp, colorResource(id = R.color.pink)),
+        customLoadingIconPainter = painterResource(id = R.drawable.simform_logo),
+        customLoadingEffect = SSCustomLoadingEffect(
+            rotation = false,
+            zoomInOut = true,
+            colorChanger = false
         )
+    )
 	```
 	```kotlin
-	    // On Success change submitButtonState to success state
-        submitButtonState = SSButtonState.SUCCESS
+	// On Success change submitButtonState to success state
+    submitButtonState = SSButtonState.SUCCESS
 	```
 	```kotlin
-        // On Failure change submitButtonState to failure state
-        submitButtonState = SSButtonState.FAILIURE
+    // On Failure change submitButtonState to failure state
+    submitButtonState = SSButtonState.FAILIURE
 	```
+
 ### All Attributes
 ------------------------
 
 | Attribute | Description | Default |
 | --- | --- | --- |
-| `type` | Choose type of animation from:[CIRCLE, WHEEL, ZOOM_IN_OUT_CIRCLE, CLOCK, SPIRAL] | None |
+| `type` | Choose type of animation from:[CIRCLE, WHEEL, ZOOM_IN_OUT_CIRCLE, CLOCK, SPIRAL, CUSTOM] | None |
 | `width` | Width to be applied to the button. | None |
 | `height` | Height to be applied to the button. | None |
 | `onClick` | Will be called when the user clicks the button. | None |
@@ -97,58 +152,11 @@
 | `customLoadingEffect` | Custom loading animation type like roation, zoom in out etc. | `SSCustomLoadingEffect( rotation = false, zoomInOut = false, colorChanger = false)` |
 | `customLoadingPadding` | Spacing between button border and loading icon. | `0` |
 
-## Customization
-* You can customize loading icon and animation effect according to your requirement.You can apply multiple animation effect from roationm, zoom-in-out and color changer.
-
-	```kotlin
-        var submitButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
-        SSJetPackComposeProgressButton(
-            type = SSButtonType.CLOCK,
-            width = 300.dp,
-            height = 50.dp,
-            onClick = {
-                //Perform action on click of button and make it state to LOADING
-                submitButtonState = SSButtonState.LOADING
-            },
-            assetColor = Color.Red,
-            buttonState = submitButtonState,
-            successIconPainter = painterResource(id = R.drawable.custom_success),
-            failureIconPainter = painterResource(id = R.drawable.custom_fail),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-            padding = PaddingValues(six.dp),
-            text = stringResource(id = R.string.simform),
-            textModifier = Modifier.padding(ten.dp),
-            fontWeight = FontWeight.Bold,
-            leftImagePainter = painterResource(id = R.drawable.simform_logo),
-            buttonBorderStroke = BorderStroke(two.dp, colorResource(id = R.color.pink)),
-            customLoadingIconPainter = painterResource(id = R.drawable.simform_logo),
-            customLoadingEffect = SSCustomLoadingEffect(
-                rotation = false,
-                zoomInOut = true,
-                colorChanger = false
-            )
-        )
-	```
-	```kotlin
-	    // On Success change submitButtonState to success state
-        submitButtonState = SSButtonState.SUCCESS
-	```
-	```kotlin
-        // On Failure change submitButtonState to failure state
-        submitButtonState = SSButtonState.FAILIURE
-	```
-
-# 🎬 Custom loading animation
-
-| On Success | On Failure |
-|--|--|
-| ![](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/custom_success.gif) | ![](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/custom_fail.gif) |
-
 
 ## Find this library useful? ❤️
 Support it by joining __[stargazers]__ for this repository.⭐
 
-## 🤝 How to Contribute
+## How to Contribute🤝
 
 Whether you're helping us fix bugs, improve the docs, or a feature request, we'd love to have you! 💪
 Check out our __[Contributing Guide]__ for ideas on contributing.
