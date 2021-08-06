@@ -12,7 +12,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.simform.ssloadingbuttonlibrary'
                 artifactId = 'ssjetpackcomposeprogressbutton'
-                version = '1.0.5'
+                version = '1.0.6'
             }
         }
     }
