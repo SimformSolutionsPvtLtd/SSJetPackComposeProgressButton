@@ -11,4 +11,5 @@
     <color name="yellow">#ffbb00</color>
     <color name="light_blue">#23395D</color>
     <color name="pink">#ff1731</color>
+    <color name="handColor">#ffffff</color>
 </resources>
