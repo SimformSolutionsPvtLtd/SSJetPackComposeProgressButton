@@ -1,3 +1,5 @@
+![alt text](https://github.com/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton/blob/main/gif/banner.png)
+
 # SSJetPackComposeProgressButton
 ### _SSJetPackComposeProgressButton is an elegant button with a different loading animations which makes your app attractive._
 
@@ -7,7 +9,7 @@
 Jetpack Compose is Android’s modern toolkit for building native UI. It simplifies and accelerates UI development on Android. Quickly bring your app to life with less code, powerful tools, and intuitive Kotlin APIs.
 
 ## How to get started
-Please get **Android Studio Arctic Fox 2020.3.1 Canary 4** or above [from here](https://developer.android.com/studio/preview/) and use **JDK 11** to build this project.
+Please get **Android Studio Arctic Fox 2020.3.1** or above [from here](https://developer.android.com/studio) and use **JDK 11** to build this project.
 
 ## Features
 - Android’s modern toolkit - Jetpack Compose support.
@@ -141,6 +143,8 @@ Please get **Android Studio Arctic Fox 2020.3.1 Canary 4** or above [from here](
 | `rightImagePainter` | Painter to draw inside this right Icon. | `null` |
 | `successIconPainter` | Painter to draw inside this success state Icon. | `rememberVectorPainter(image = Icons.Default.Done)` |
 | `failureIconPainter` | Painter to draw inside this failiure state Icon. | `rememberVectorPainter(image = Icons.Outlined.Info)` |
+| `successIconColor` | Color to be applied to success icon. | assetColor |
+| `failureIconColor` | Color to be applied to failure icon. | assetColor |
 | `text` | The text to be displayed. | `null` |
 | `textModifier` | To apply to this text layout node. | `Modifier` |
 | `fontSize` | The size of glyphs to use when painting the text. | `TextUnit.Unspecified` |
