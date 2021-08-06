@@ -74,6 +74,8 @@ import kotlinx.coroutines.delay
  * @rightImagePainter painter [Painter] to draw inside this right Icon.
  * @successIconPainter painter [Painter] to draw inside this success state Icon.
  * @failureIconPainter painter [Painter] to draw inside this failiure state Icon.
+ * @successIconColor Color to be applied to success icon.
+ * @failureIconColor Color to be applied to failure icon.
  * @param text The text to be displayed.
  * @param textModifier [Modifier] to apply to this text layout node.
  * @param fontSize The size of glyphs to use when painting the text. See [TextStyle.fontSize].
@@ -107,6 +109,8 @@ fun SSJetPackComposeProgressButton(
     rightImagePainter: Painter? = null,
     successIconPainter: Painter = rememberVectorPainter(image = Icons.Default.Done),
     failureIconPainter: Painter = rememberVectorPainter(image = Icons.Outlined.Info),
+    successIconColor: Color = assetColor,
+    failureIconColor: Color = assetColor,
     text: String? = null,
     textModifier: Modifier = Modifier,
     fontSize: TextUnit = TextUnit.Unspecified,
@@ -328,7 +332,7 @@ fun SSJetPackComposeProgressButton(
                     )
                 )
                 .size(minHeightWidth - twenty.dp),
-            tint = assetColor
+            tint = successIconColor
         )
         //FAILURE State icon
         Icon(
@@ -342,7 +346,7 @@ fun SSJetPackComposeProgressButton(
                     )
                 )
                 .size(minHeightWidth - twenty.dp),
-            tint = assetColor
+            tint = failureIconColor
         )
         //LOADING State
         var effectiveMinHeight = minHeightWidth

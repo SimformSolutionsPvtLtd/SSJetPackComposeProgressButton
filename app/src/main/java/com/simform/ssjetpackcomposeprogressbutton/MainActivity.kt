@@ -120,7 +120,7 @@ fun SSLoadingButtonExample() {
                 elevation = ButtonDefaults.elevation(),
                 colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.light_blue))
             ) {
-                Text(text = stringResource(id = R.string.on_success), color = Color.White)
+                Text(text = stringResource(id = R.string.on_success), color = Color.White, fontSize = FONT_SIZE.sp)
             }
             Button(
                 onClick = {
@@ -145,7 +145,7 @@ fun SSLoadingButtonExample() {
                 elevation = ButtonDefaults.elevation(),
                 colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.light_blue))
             ) {
-                Text(text = stringResource(id = R.string.on_failure), color = Color.White)
+                Text(text = stringResource(id = R.string.on_failure), color = Color.White, fontSize = FONT_SIZE.sp)
             }
         }
 
@@ -269,6 +269,7 @@ fun SSLoadingButtonExample() {
                     text = stringResource(id = R.string.stylish_text),
                     fontStyle = FontStyle.Italic,
                     fontSize = FONT_SIZE.sp,
+                    fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Monospace,
                     cornerRadius = COMMON_CORNER_RADIUS,
                     textModifier = Modifier.padding(TWELVE.dp),
@@ -285,6 +286,7 @@ fun SSLoadingButtonExample() {
                     fontFamily = FontFamily.SansSerif,
                     textModifier = Modifier.padding(TWELVE.dp),
                     fontSize = FONT_SIZE.sp,
+                    fontWeight = FontWeight.Bold,
                     blinkingIcon = true,
                     padding = PaddingValues(TWELVE.dp),
                     cornerRadius = COMMON_CORNER_RADIUS,
@@ -302,6 +304,7 @@ fun SSLoadingButtonExample() {
                     fontFamily = FontFamily.Serif,
                     textModifier = Modifier.padding(TWELVE.dp),
                     fontSize = FONT_SIZE.sp,
+                    fontWeight = FontWeight.Bold,
                     padding = PaddingValues(TWELVE.dp),
                     cornerRadius = COMMON_CORNER_RADIUS,
                     colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.pink))
@@ -376,6 +379,8 @@ fun SSLoadingButtonExample() {
                     textModifier = Modifier.padding(ten.dp),
                     fontWeight = FontWeight.Bold,
                     fontSize = FONT_SIZE.sp,
+                    successIconColor = colorResource(id = R.color.dark_green),
+                    failureIconColor = colorResource(id = R.color.colorPrimaryDark),
                     leftImagePainter = painterResource(id = R.drawable.simform_logo),
                     buttonBorderStroke = BorderStroke(COMMON_BORDER_WIDTH.dp, colorResource(id = R.color.pink))
                 )
