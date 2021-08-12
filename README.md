@@ -168,6 +168,9 @@ Check out our __[Contributing Guide]__ for ideas on contributing.
 ## Bugs and Feedback
 For bugs, feature requests, and discussion please use __[GitHub Issues]__.
 
+## Medium Blog
+For more info go to __[Progress Button using JetPack Compose : SSJetPackComposeProgressButton](https://medium.com/simform-engineering/progress-button-using-jetpack-compose-ssjetpackcomposeprogressbutton-fbc187d1370e)__
+
 ## License
 ```
 Copyright 2021 Simform Solutions
