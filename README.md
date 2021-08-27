@@ -156,6 +156,8 @@ Please get **Android Studio Arctic Fox 2020.3.1** or above [from here](https://d
 | `customLoadingEffect` | Custom loading animation type like roation, zoom in out etc. | `SSCustomLoadingEffect( rotation = false, zoomInOut = false, colorChanger = false)` |
 | `customLoadingPadding` | Spacing between button border and loading icon. | `0` |
 
+## Our JetPackCompose Sample
+[SSComposeCookBook](https://github.com/SimformSolutionsPvtLtd/SSComposeCookBook) :  A Collection of major Jetpack compose UI components which are commonly used.
 
 ## Find this library useful? ❤️
 Support it by joining __[stargazers]__ for this repository.⭐
