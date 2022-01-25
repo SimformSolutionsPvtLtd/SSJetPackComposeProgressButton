@@ -86,6 +86,7 @@ import kotlinx.coroutines.delay
  * @param customLoadingIconPainter painter [Painter] to draw your custom loading icon.
  * @param customLoadingEffect custom loading animation type.
  * @param customLoadingPadding spacing between button border and loading icon.
+ * @param shouldAutoMoveToIdleState In case of success/failure state after defined time it move back to idle state
  */
 
 @Composable
@@ -124,7 +125,8 @@ fun SSJetPackComposeProgressButton(
         zoomInOut = false,
         colorChanger = false
     ),
-    customLoadingPadding: Int = ZERO
+    customLoadingPadding: Int = ZERO,
+    shouldAutoMoveToIdleState: Boolean = true
 ) {
     var buttonWidth by remember { mutableStateOf(width) }
     var buttonHeight by remember { mutableStateOf(height) }
@@ -175,17 +177,20 @@ fun SSJetPackComposeProgressButton(
                 successIconAlphaValue = oneFloat
                 progressAlphaValue = zeroFloat
                 cornerRadiusValue = fifty
-                //Delay to show success icon and then IDLE state
-                delay((speedMillis * two).toLong())
-                if (height > width) {
-                    buttonHeight = height
-                } else {
-                    buttonWidth = width
+
+                if (shouldAutoMoveToIdleState) {
+                    //Delay to show success icon and then IDLE state
+                    delay((speedMillis * two).toLong())
+                    if (height > width) {
+                        buttonHeight = height
+                    } else {
+                        buttonWidth = width
+                    }
+                    iconAlphaValue = oneFloat
+                    failureAlphaValue = zeroFloat
+                    successIconAlphaValue = zeroFloat
+                    cornerRadiusValue = cornerRadius
                 }
-                iconAlphaValue = oneFloat
-                failureAlphaValue = zeroFloat
-                successIconAlphaValue = zeroFloat
-                cornerRadiusValue = cornerRadius
             })
         }
         SSButtonState.FAILIURE -> {
@@ -200,17 +205,21 @@ fun SSJetPackComposeProgressButton(
                 progressAlphaValue = zeroFloat
                 failureAlphaValue = oneFloat
                 cornerRadiusValue = fifty
-                //Delay to show failure icon and then IDLE state
-                delay((speedMillis * two).toLong())
-                if (height > width) {
-                    buttonHeight = height
-                } else {
-                    buttonWidth = width
+
+                if (shouldAutoMoveToIdleState) {
+                    //Delay to show failure icon and then IDLE state
+                    delay((speedMillis * two).toLong())
+
+                    if (height > width) {
+                        buttonHeight = height
+                    } else {
+                        buttonWidth = width
+                    }
+                    iconAlphaValue = oneFloat
+                    failureAlphaValue = zeroFloat
+                    successIconAlphaValue = zeroFloat
+                    cornerRadiusValue = cornerRadius
                 }
-                iconAlphaValue = oneFloat
-                failureAlphaValue = zeroFloat
-                successIconAlphaValue = zeroFloat
-                cornerRadiusValue = cornerRadius
             })
         }
     }

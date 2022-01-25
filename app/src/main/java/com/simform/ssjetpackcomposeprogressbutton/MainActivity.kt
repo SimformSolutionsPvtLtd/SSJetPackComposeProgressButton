@@ -174,7 +174,8 @@ fun SSLoadingButtonExample() {
                     height = COMMON_HEIGHT.dp,
                     padding = PaddingValues(TWELVE.dp),
                     cornerRadius = COMMON_CORNER_RADIUS,
-                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
+                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    shouldAutoMoveToIdleState = false
                 )
                 SSJetPackComposeProgressButton(
                     assetColor = colorResource(id = R.color.pink),
