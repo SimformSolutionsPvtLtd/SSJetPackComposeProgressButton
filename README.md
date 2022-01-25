@@ -155,6 +155,7 @@ Please get **Android Studio Arctic Fox 2020.3.1** or above [from here](https://d
 | `customLoadingIconPainter` | painter [Painter] to draw your custom loading icon. | `painterResource(id = R.drawable.simform_logo)` |
 | `customLoadingEffect` | Custom loading animation type like roation, zoom in out etc. | `SSCustomLoadingEffect( rotation = false, zoomInOut = false, colorChanger = false)` |
 | `customLoadingPadding` | Spacing between button border and loading icon. | `0` |
+| `shouldAutoMoveToIdleState` | In case of success/failure state after defined time it move back to idle state.   | `true` |
 
 ## Our JetPackCompose Sample
 [SSComposeCookBook](https://github.com/SimformSolutionsPvtLtd/SSComposeCookBook) :  A Collection of major Jetpack compose UI components which are commonly used.
