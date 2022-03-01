@@ -48,7 +48,7 @@ Please get **Android Studio Arctic Fox 2020.3.1** or above [from here](https://d
 
 	```groovy
 	dependencies {
-	        implementation 'com.github.SimformSolutionsPvtLtd:SSJetPackComposeProgressButton:1.0.6'
+	        implementation 'com.github.SimformSolutionsPvtLtd:SSJetPackComposeProgressButton:1.0.7'
 	}
 	```
 
