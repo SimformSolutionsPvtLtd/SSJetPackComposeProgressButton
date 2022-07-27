@@ -173,9 +173,12 @@ For bugs, feature requests, and discussion please use __[GitHub Issues]__.
 ## Medium Blog
 For more info go to __[Progress Button using JetPack Compose : SSJetPackComposeProgressButton](https://medium.com/simform-engineering/progress-button-using-jetpack-compose-ssjetpackcomposeprogressbutton-fbc187d1370e)__
 
+## Awesome Mobile Libraries
+- Check out our other available [awesome mobile libraries](https://github.com/SimformSolutionsPvtLtd/Awesome-Mobile-Libraries)
+
 ## License
 ```
-Copyright 2021 Simform Solutions
+Copyright 2022 Simform Solutions
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
