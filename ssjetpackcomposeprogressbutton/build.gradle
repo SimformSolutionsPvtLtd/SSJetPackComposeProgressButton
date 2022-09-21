@@ -12,21 +12,18 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.simform.ssloadingbuttonlibrary'
                 artifactId = 'ssjetpackcomposeprogressbutton'
-                version = '1.0.7'
+                version = '1.0.8'
             }
         }
     }
 }
 
 android {
-    compileSdk 30
-    buildToolsVersion "30.0.3"
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 30
-        versionCode 1
-        versionName "1.0"
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -45,7 +42,6 @@ android {
     }
 
     kotlinOptions {
-        useIR = true
         jvmTarget = '11'
     }
 
@@ -55,8 +51,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion kotlin_version
+        kotlinCompilerExtensionVersion compose_compiler
     }
 }
 
