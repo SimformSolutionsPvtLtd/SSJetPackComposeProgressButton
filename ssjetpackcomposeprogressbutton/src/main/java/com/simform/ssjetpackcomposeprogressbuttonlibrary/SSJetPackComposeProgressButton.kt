@@ -188,7 +188,7 @@ fun SSJetPackComposeProgressButton(
                 cornerRadiusValue = cornerRadius
             })
         }
-        SSButtonState.FAILIURE -> {
+        SSButtonState.FAILURE -> {
             LaunchedEffect(key1 = LAUNCH_EFFECT_KEY, block = {
                 if (height > width) {
                     buttonHeight = width
