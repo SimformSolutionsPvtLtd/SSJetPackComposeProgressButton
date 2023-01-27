@@ -124,19 +124,19 @@ fun SSLoadingButtonExample() {
             }
             Button(
                 onClick = {
-                    roundedProgressState = SSButtonState.FAILIURE
-                    wheelState = SSButtonState.FAILIURE
-                    zoomInOutState = SSButtonState.FAILIURE
-                    clockState = SSButtonState.FAILIURE
-                    roundedProgressState2 = SSButtonState.FAILIURE
-                    spiralState = SSButtonState.FAILIURE
-                    ssTextButtonState = SSButtonState.FAILIURE
-                    textWithIconState = SSButtonState.FAILIURE
-                    textWithRightButton = SSButtonState.FAILIURE
-                    blinkingIcon = SSButtonState.FAILIURE
-                    customRotationButtonState = SSButtonState.FAILIURE
-                    customEffectButtonState = SSButtonState.FAILIURE
-                    customZoomButtonState = SSButtonState.FAILIURE
+                    roundedProgressState = SSButtonState.FAILURE
+                    wheelState = SSButtonState.FAILURE
+                    zoomInOutState = SSButtonState.FAILURE
+                    clockState = SSButtonState.FAILURE
+                    roundedProgressState2 = SSButtonState.FAILURE
+                    spiralState = SSButtonState.FAILURE
+                    ssTextButtonState = SSButtonState.FAILURE
+                    textWithIconState = SSButtonState.FAILURE
+                    textWithRightButton = SSButtonState.FAILURE
+                    blinkingIcon = SSButtonState.FAILURE
+                    customRotationButtonState = SSButtonState.FAILURE
+                    customEffectButtonState = SSButtonState.FAILURE
+                    customZoomButtonState = SSButtonState.FAILURE
                 },
                 modifier = Modifier
                     .padding(TWELVE.dp)
