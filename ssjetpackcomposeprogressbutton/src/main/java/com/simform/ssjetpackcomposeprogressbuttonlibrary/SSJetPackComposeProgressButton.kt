@@ -230,7 +230,7 @@ fun SSJetPackComposeProgressButton(
                         durationMillis = speedMillis
                     )
                 ),
-            enabled = enabled,
+            enabled = enabled && buttonState != SSButtonState.LOADING,
             elevation = elevation,
             shape = RoundedCornerShape(ssAnimateIntAsState(cornerRadiusValue, speedMillis)),
             border = buttonBorderStroke,
