@@ -3,7 +3,7 @@
 # SSJetPackComposeProgressButton
 ### _SSJetPackComposeProgressButton is an elegant button with a different loading animations which makes your app attractive._
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)][git-repo-url] [![](https://jitpack.io/v/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton.svg)](https://jitpack.io/#SimformSolutionsPvtLtd/SSJetPackComposeProgressButton) [![Kotlin Version](https://img.shields.io/badge/Kotlin-v1.5.10-blue.svg)](https://kotlinlang.org) [![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=flat)](https://www.android.com/) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SSJetPackComposeProgressButton-green.svg?style=flat )]( https://android-arsenal.com/details/1/8302 )
+[![CI Status](https://img.shields.io/github/v/release/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton?style=flat)](https://travis-ci.org/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton) [![](https://jitpack.io/v/SimformSolutionsPvtLtd/SSJetPackComposeProgressButton.svg)](https://jitpack.io/#SimformSolutionsPvtLtd/SSJetPackComposeProgressButton) [![Kotlin Version](https://img.shields.io/badge/Kotlin-v1.5.10-blue.svg)](https://kotlinlang.org) [![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=flat)](https://www.android.com/) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SSJetPackComposeProgressButton-green.svg?style=flat )]( https://android-arsenal.com/details/1/8302 )
 
 # Jetpack Compose
 Jetpack Compose is Android’s modern toolkit for building native UI. It simplifies and accelerates UI development on Android. Quickly bring your app to life with less code, powerful tools, and intuitive Kotlin APIs.
@@ -48,7 +48,7 @@ Please get **Android Studio Arctic Fox 2020.3.1** or above [from here](https://d
 
 	```groovy
 	dependencies {
-	        implementation 'com.github.SimformSolutionsPvtLtd:SSJetPackComposeProgressButton:1.0.7'
+	        implementation 'com.github.SimformSolutionsPvtLtd:SSJetPackComposeProgressButton:1.0.8'
 	}
 	```
 
