@@ -6,5 +6,6 @@
     <string name="on_success">On Success</string>
     <string name="on_failure">On Failure</string>
     <string name="simform">SIMFORM</string>
+    <string name="gif_loader">Gif Loader</string>
 
 </resources>
