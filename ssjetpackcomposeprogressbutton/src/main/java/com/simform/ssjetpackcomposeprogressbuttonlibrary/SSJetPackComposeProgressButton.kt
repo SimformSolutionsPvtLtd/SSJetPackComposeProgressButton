@@ -1,5 +1,8 @@
 package com.simform.ssjetpackcomposeprogressbuttonlibrary
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -54,7 +57,9 @@ import kotlinx.coroutines.delay
  * @param onClick Will be called when the user clicks the button.
  * @param assetColor Color to be applied to icon and text inside button.
  * @param buttonState represent the state of button from IDLE, LOADING, SUCCESS, FAILIURE from SSButtonState.
- * @param buttonBorderStroke Border to draw around the button.
+ * @param buttonBorderWidth Border width to draw around the button.
+ * @param buttonBorderColor Border color applied to button.
+ * @param animatedButtonBorderColor Border color applied to button while in LOADING state.
  * @param blinkingIcon Icon will be blink with size and color.
  * @param cornerRadius Corner radius to be applied to the button.
  * @param speedMillis Speed of the animation while changing the state.
@@ -62,7 +67,7 @@ import kotlinx.coroutines.delay
  * be clickable.
  * @param elevation [ButtonElevation] used to resolve the elevation for this button in different.
  * states. This controls the size of the shadow below the button. Pass `null` here to disable
- * elevation for this button. See [ButtonDefaults.elevation].
+ * elevation for this button. See [ButtonDefaults.elevatedButtonElevation].
  * @param colors [ButtonColors] that will be used to resolve the background and content color for
  * this button in different states. See [ButtonDefaults.buttonColors].
  * @param padding The spacing values to apply internally between the container and the content.
@@ -97,7 +102,9 @@ fun SSJetPackComposeProgressButton(
     onClick: () -> Unit,
     assetColor: Color,
     buttonState: SSButtonState,
-    buttonBorderStroke: BorderStroke? = null,
+    buttonBorderWidth: Dp? = 0.dp,
+    buttonBorderColor: Color? = null,
+    animatedButtonBorderColor: Color? = null,
     blinkingIcon: Boolean = false,
     cornerRadius: Int = twenty,
     speedMillis: Int = thousand,
@@ -135,6 +142,19 @@ fun SSJetPackComposeProgressButton(
     var failureAlphaValue by remember { mutableStateOf(zeroFloat) }
     var progressAlphaValue by remember { mutableStateOf(zeroFloat) }
     var cornerRadiusValue by remember { mutableStateOf(cornerRadius) }
+    val borderColor by animateColorAsState(
+        targetValue = (
+                if (buttonState == SSButtonState.LOADING)
+                    animatedButtonBorderColor
+                else
+                    buttonBorderColor
+                ) ?: Color.Transparent,
+        animationSpec = tween(
+            durationMillis = speedMillis,
+            easing = LinearOutSlowInEasing
+        ),
+        label = "",
+    )
     val minHeightWidth = if (height > width) {
         width
     } else {
@@ -242,7 +262,10 @@ fun SSJetPackComposeProgressButton(
             enabled = enabled && buttonState != SSButtonState.LOADING,
             elevation = elevation,
             shape = RoundedCornerShape(ssAnimateIntAsState(cornerRadiusValue, speedMillis)),
-            border = buttonBorderStroke,
+            border = BorderStroke(
+                width = buttonBorderWidth ?: 0.dp,
+                color = borderColor
+            ),
             colors = colors
         ) {}
         //IDLE State icon
@@ -359,7 +382,7 @@ fun SSJetPackComposeProgressButton(
         )
         //LOADING State
         var effectiveMinHeight = minHeightWidth
-        buttonBorderStroke?.width?.let {
+        buttonBorderWidth?.let {
             effectiveMinHeight = effectiveMinHeight - it - it
         }
         PrintLoadingBar(
