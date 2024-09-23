@@ -7,15 +7,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.ButtonElevation
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonElevation
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -102,7 +102,7 @@ fun SSJetPackComposeProgressButton(
     cornerRadius: Int = twenty,
     speedMillis: Int = thousand,
     enabled: Boolean = true,
-    elevation: ButtonElevation? = ButtonDefaults.elevation(),
+    elevation: ButtonElevation? = ButtonDefaults.elevatedButtonElevation(),
     colors: ButtonColors = ButtonDefaults.buttonColors(),
     padding: PaddingValues = PaddingValues(0.dp),
     alphaValue: Float = 1f,
