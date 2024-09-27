@@ -10,9 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
@@ -22,6 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,8 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -39,15 +36,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.DEFAULT_ANIMATION_SPEED
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.DISABLE_VIEW_ALPHA
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.Dimens.COMMON_CORNER_RADIUS
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.Dimens.SPACING_LARGE
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.Dimens.SPACING_SMALL
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ENABLE_VIEW_ALPHA
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.LAUNCH_EFFECT_KEY
-import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ZERO
-import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.fifty
-import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.oneFloat
-import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ten
-import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.thousand
-import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.twenty
-import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.two
-import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.zeroFloat
 import kotlinx.coroutines.delay
 
 /**
@@ -56,6 +51,7 @@ import kotlinx.coroutines.delay
  * @param height Height to be applied to the button.
  * @param onClick Will be called when the user clicks the button.
  * @param assetColor Color to be applied to icon and text inside button.
+ * @param buttonState represent the state of button from IDLE, LOADING, SUCCESS, FAILURE from SSButtonState.
  * @param buttonState represent the state of button from IDLE, LOADING, SUCCESS, FAILIURE from SSButtonState.
  * @param buttonBorderWidth Border width to draw around the button.
  * @param buttonBorderColor Border color applied to button.
@@ -78,7 +74,7 @@ import kotlinx.coroutines.delay
  * @leftImagePainter painter [Painter] to draw inside this left Icon.
  * @rightImagePainter painter [Painter] to draw inside this right Icon.
  * @successIconPainter painter [Painter] to draw inside this success state Icon.
- * @failureIconPainter painter [Painter] to draw inside this failiure state Icon.
+ * @failureIconPainter painter [Painter] to draw inside this failure state Icon.
  * @successIconColor Color to be applied to success icon.
  * @failureIconColor Color to be applied to failure icon.
  * @param text The text to be displayed.
@@ -106,8 +102,8 @@ fun SSJetPackComposeProgressButton(
     buttonBorderColor: Color? = null,
     animatedButtonBorderColor: Color? = null,
     blinkingIcon: Boolean = false,
-    cornerRadius: Int = twenty,
-    speedMillis: Int = thousand,
+    cornerRadius: Int = 0,
+    speedMillis: Int = DEFAULT_ANIMATION_SPEED,
     enabled: Boolean = true,
     elevation: ButtonElevation? = ButtonDefaults.elevatedButtonElevation(),
     colors: ButtonColors = ButtonDefaults.buttonColors(),
@@ -115,8 +111,8 @@ fun SSJetPackComposeProgressButton(
     alphaValue: Float = 1f,
     leftImagePainter: Painter? = null,
     rightImagePainter: Painter? = null,
-    successIconPainter: Painter = rememberVectorPainter(image = Icons.Default.Done),
-    failureIconPainter: Painter = rememberVectorPainter(image = Icons.Outlined.Info),
+    successIconPainter: Painter? = null,
+    failureIconPainter: Painter? = null,
     successIconColor: Color = assetColor,
     failureIconColor: Color = assetColor,
     text: String? = null,
@@ -126,22 +122,22 @@ fun SSJetPackComposeProgressButton(
     fontFamily: FontFamily? = null,
     fontWeight: FontWeight? = null,
     hourHandColor: Color = Color.Black,
-    customLoadingIconPainter: Painter = painterResource(id = R.drawable.simform_logo),
+    customLoadingIconPainter: Painter? = null,
     customLoadingEffect: SSCustomLoadingEffect = SSCustomLoadingEffect(
         rotation = false,
         zoomInOut = false,
         colorChanger = false
     ),
-    customLoadingPadding: Int = ZERO,
-    shouldAutoMoveToIdleState: Boolean = true
+    shouldAutoMoveToIdleState: Boolean = true,
+    customLoadingPadding: Int = 0
 ) {
     var buttonWidth by remember { mutableStateOf(width) }
     var buttonHeight by remember { mutableStateOf(height) }
-    var iconAlphaValue by remember { mutableStateOf(oneFloat) }
-    var successIconAlphaValue by remember { mutableStateOf(zeroFloat) }
-    var failureAlphaValue by remember { mutableStateOf(zeroFloat) }
-    var progressAlphaValue by remember { mutableStateOf(zeroFloat) }
-    var cornerRadiusValue by remember { mutableStateOf(cornerRadius) }
+    var iconAlphaValue by remember { mutableFloatStateOf(ENABLE_VIEW_ALPHA) }
+    var successIconAlphaValue by remember { mutableFloatStateOf(DISABLE_VIEW_ALPHA) }
+    var failureAlphaValue by remember { mutableFloatStateOf(DISABLE_VIEW_ALPHA) }
+    var progressAlphaValue by remember { mutableFloatStateOf(DISABLE_VIEW_ALPHA) }
+    var cornerRadiusValue by remember { mutableIntStateOf(cornerRadius) }
     val borderColor by animateColorAsState(
         targetValue = (
                 if (buttonState == SSButtonState.LOADING)
@@ -167,10 +163,10 @@ fun SSJetPackComposeProgressButton(
             } else {
                 buttonWidth = width
             }
-            iconAlphaValue = oneFloat
-            failureAlphaValue = zeroFloat
-            successIconAlphaValue = zeroFloat
-            progressAlphaValue = zeroFloat
+            iconAlphaValue = ENABLE_VIEW_ALPHA
+            failureAlphaValue = DISABLE_VIEW_ALPHA
+            successIconAlphaValue = DISABLE_VIEW_ALPHA
+            progressAlphaValue = DISABLE_VIEW_ALPHA
             cornerRadiusValue = cornerRadius
         }
         SSButtonState.LOADING -> {
@@ -179,11 +175,11 @@ fun SSJetPackComposeProgressButton(
             } else {
                 buttonWidth = height
             }
-            iconAlphaValue = zeroFloat
-            failureAlphaValue = zeroFloat
-            successIconAlphaValue = zeroFloat
-            progressAlphaValue = oneFloat
-            cornerRadiusValue = fifty
+            iconAlphaValue = DISABLE_VIEW_ALPHA
+            failureAlphaValue = DISABLE_VIEW_ALPHA
+            successIconAlphaValue = DISABLE_VIEW_ALPHA
+            progressAlphaValue = ENABLE_VIEW_ALPHA
+            cornerRadiusValue = COMMON_CORNER_RADIUS
         }
         SSButtonState.SUCCESS -> {
             LaunchedEffect(key1 = LAUNCH_EFFECT_KEY, block = {
@@ -192,23 +188,24 @@ fun SSJetPackComposeProgressButton(
                 } else {
                     buttonWidth = height
                 }
-                iconAlphaValue = zeroFloat
-                failureAlphaValue = zeroFloat
-                successIconAlphaValue = oneFloat
-                progressAlphaValue = zeroFloat
-                cornerRadiusValue = fifty
-
+                iconAlphaValue = DISABLE_VIEW_ALPHA
+                failureAlphaValue = DISABLE_VIEW_ALPHA
+                successIconAlphaValue = ENABLE_VIEW_ALPHA
+                progressAlphaValue = DISABLE_VIEW_ALPHA
+                cornerRadiusValue = COMMON_CORNER_RADIUS
                 if (shouldAutoMoveToIdleState) {
                     //Delay to show success icon and then IDLE state
-                    delay((speedMillis * two).toLong())
+                    successIconPainter?.let {
+                        delay((speedMillis * 2).toLong())
+                    }
                     if (height > width) {
                         buttonHeight = height
                     } else {
                         buttonWidth = width
                     }
-                    iconAlphaValue = oneFloat
-                    failureAlphaValue = zeroFloat
-                    successIconAlphaValue = zeroFloat
+                    iconAlphaValue = ENABLE_VIEW_ALPHA
+                    failureAlphaValue = DISABLE_VIEW_ALPHA
+                    successIconAlphaValue = DISABLE_VIEW_ALPHA
                     cornerRadiusValue = cornerRadius
                 }
             })
@@ -220,24 +217,25 @@ fun SSJetPackComposeProgressButton(
                 } else {
                     buttonWidth = height
                 }
-                successIconAlphaValue = zeroFloat
-                iconAlphaValue = zeroFloat
-                progressAlphaValue = zeroFloat
-                failureAlphaValue = oneFloat
-                cornerRadiusValue = fifty
+                successIconAlphaValue = DISABLE_VIEW_ALPHA
+                iconAlphaValue = DISABLE_VIEW_ALPHA
+                progressAlphaValue = DISABLE_VIEW_ALPHA
+                failureAlphaValue = ENABLE_VIEW_ALPHA
+                cornerRadiusValue = COMMON_CORNER_RADIUS
 
                 if (shouldAutoMoveToIdleState) {
                     //Delay to show failure icon and then IDLE state
-                    delay((speedMillis * two).toLong())
-
+                    failureIconPainter?.let {
+                        delay((speedMillis * 2).toLong())
+                    }
                     if (height > width) {
                         buttonHeight = height
                     } else {
                         buttonWidth = width
                     }
-                    iconAlphaValue = oneFloat
-                    failureAlphaValue = zeroFloat
-                    successIconAlphaValue = zeroFloat
+                    iconAlphaValue = ENABLE_VIEW_ALPHA
+                    failureAlphaValue = DISABLE_VIEW_ALPHA
+                    successIconAlphaValue = DISABLE_VIEW_ALPHA
                     cornerRadiusValue = cornerRadius
                 }
             })
@@ -283,11 +281,11 @@ fun SSJetPackComposeProgressButton(
                         )
                         .size(
                             ssRepeatedDpAnimation(
-                                initialValue = minHeightWidth - twenty.dp,
+                                initialValue = minHeightWidth - SPACING_LARGE,
                                 targetValue = if (blinkingIcon) {
-                                    minHeightWidth - ten.dp
+                                    minHeightWidth - SPACING_SMALL
                                 } else {
-                                    minHeightWidth - twenty.dp
+                                    minHeightWidth - SPACING_LARGE
                                 },
                                 durationMillis = speedMillis
                             )
@@ -333,11 +331,11 @@ fun SSJetPackComposeProgressButton(
                         )
                         .size(
                             ssRepeatedDpAnimation(
-                                initialValue = minHeightWidth - twenty.dp,
+                                initialValue = minHeightWidth - SPACING_LARGE,
                                 targetValue = if (blinkingIcon) {
-                                    minHeightWidth - ten.dp
+                                    minHeightWidth - SPACING_SMALL
                                 } else {
-                                    minHeightWidth - twenty.dp
+                                    minHeightWidth - SPACING_LARGE
                                 },
                                 durationMillis = speedMillis
                             )
@@ -353,33 +351,37 @@ fun SSJetPackComposeProgressButton(
             }
         }
         //SUCCESS State icon
-        Icon(
-            painter = successIconPainter,
-            contentDescription = null,
-            modifier = Modifier
-                .graphicsLayer(
-                    alpha = ssAnimateFloatAsState(
-                        targetValue = successIconAlphaValue,
-                        durationMillis = speedMillis
+        successIconPainter?.let {
+            Icon(
+                painter = successIconPainter,
+                contentDescription = null,
+                modifier = Modifier
+                    .graphicsLayer(
+                        alpha = ssAnimateFloatAsState(
+                            targetValue = successIconAlphaValue,
+                            durationMillis = speedMillis
+                        )
                     )
-                )
-                .size(minHeightWidth - twenty.dp),
-            tint = successIconColor
-        )
+                    .size(minHeightWidth - SPACING_LARGE),
+                tint = successIconColor
+            )
+        }
         //FAILURE State icon
-        Icon(
-            painter = failureIconPainter,
-            contentDescription = null,
-            modifier = Modifier
-                .graphicsLayer(
-                    alpha = ssAnimateFloatAsState(
-                        targetValue = failureAlphaValue,
-                        durationMillis = speedMillis
+        failureIconPainter?.let {
+            Icon(
+                painter = failureIconPainter,
+                contentDescription = null,
+                modifier = Modifier
+                    .graphicsLayer(
+                        alpha = ssAnimateFloatAsState(
+                            targetValue = failureAlphaValue,
+                            durationMillis = speedMillis
+                        )
                     )
-                )
-                .size(minHeightWidth - twenty.dp),
-            tint = failureIconColor
-        )
+                    .size(minHeightWidth - SPACING_LARGE),
+                tint = failureIconColor
+            )
+        }
         //LOADING State
         var effectiveMinHeight = minHeightWidth
         buttonBorderWidth?.let {
