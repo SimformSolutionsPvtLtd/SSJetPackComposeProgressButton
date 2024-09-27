@@ -19,10 +19,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -36,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -44,27 +45,21 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import com.simform.ssjetpackcomposeprogressbutton.utils.COMMON_BORDER_WIDTH
-import com.simform.ssjetpackcomposeprogressbutton.utils.COMMON_CORNER_RADIUS
-import com.simform.ssjetpackcomposeprogressbutton.utils.COMMON_HEIGHT
-import com.simform.ssjetpackcomposeprogressbutton.utils.COMMON_WIDTH
-import com.simform.ssjetpackcomposeprogressbutton.utils.FONT_SIZE
-import com.simform.ssjetpackcomposeprogressbutton.utils.FORTY
-import com.simform.ssjetpackcomposeprogressbutton.utils.ONE_FLOAT
-import com.simform.ssjetpackcomposeprogressbutton.utils.TOP_BUTTON_HEIGHT
-import com.simform.ssjetpackcomposeprogressbutton.utils.TOP_BUTTON_RADIUS
-import com.simform.ssjetpackcomposeprogressbutton.utils.TWELVE
-import com.simform.ssjetpackcomposeprogressbutton.utils.TWO
-import com.simform.ssjetpackcomposeprogressbutton.utils.ZERO
-import com.simform.ssjetpackcomposeprogressbuttonlibrary.R.drawable
+import com.simform.ssjetpackcomposeprogressbutton.utils.DARK_GREEN
+import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions
+import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_LARGE
+import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_MEDIUM
+import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_NORMAL
+import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_SMALL
+import com.simform.ssjetpackcomposeprogressbutton.utils.LIGHT_BLUE
+import com.simform.ssjetpackcomposeprogressbutton.utils.LIGHT_PINK
+import com.simform.ssjetpackcomposeprogressbutton.utils.PRIMARY_DARK
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.SSButtonState
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.SSButtonType
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.SSCustomLoadingEffect
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.SSJetPackComposeProgressButton
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.gifPainter
-import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ten
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,10 +92,10 @@ fun SSLoadingButtonExample() {
     var customGifButtonState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
 
     Column {
-        Spacer(modifier = Modifier.size((TWELVE * TWO).dp))
+        Spacer(modifier = Modifier.size(SPACING_MEDIUM))
         Row(
             Modifier
-                .padding(ZERO.dp, ZERO.dp, ZERO.dp, FORTY.dp)
+                .padding(0.dp, 0.dp, 0.dp, SPACING_LARGE)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
@@ -122,18 +117,17 @@ fun SSLoadingButtonExample() {
                     customGifButtonState = SSButtonState.SUCCESS
                 },
                 modifier = Modifier
-                    .padding(TWELVE.dp)
-                    .weight(ONE_FLOAT)
-                    .height(TOP_BUTTON_HEIGHT.dp),shape = RoundedCornerShape(TOP_BUTTON_RADIUS.dp),
+                    .padding(SPACING_NORMAL)
+                    .weight(1f)
+                    .height(Dimensions.TOP_BUTTON_HEIGHT),
+                shape = RoundedCornerShape(Dimensions.TOP_BUTTON_RADIUS),
                 elevation = ButtonDefaults.elevatedButtonElevation(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = R.color.light_blue)
-                )
+                colors = ButtonDefaults.buttonColors(containerColor = LIGHT_BLUE)
             ) {
                 Text(
                     text = stringResource(id = R.string.on_success),
                     color = Color.White,
-                    fontSize = FONT_SIZE.sp
+                    fontSize = Dimensions.MEDIUM_FONT_SIZE
                 )
             }
             Button(
@@ -154,18 +148,17 @@ fun SSLoadingButtonExample() {
                     customGifButtonState = SSButtonState.FAILURE
                 },
                 modifier = Modifier
-                    .padding(TWELVE.dp)
+                    .padding(SPACING_NORMAL)
                     .weight(1f)
-                    .height(TOP_BUTTON_HEIGHT.dp),shape = RoundedCornerShape(TOP_BUTTON_RADIUS.dp),
+                    .height(Dimensions.TOP_BUTTON_HEIGHT),
+                shape = RoundedCornerShape(Dimensions.TOP_BUTTON_RADIUS),
                 elevation = ButtonDefaults.elevatedButtonElevation(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = R.color.light_blue)
-                )
+                colors = ButtonDefaults.buttonColors(containerColor = LIGHT_BLUE)
             ) {
                 Text(
                     text = stringResource(id = R.string.on_failure),
                     color = Color.White,
-                    fontSize = FONT_SIZE.sp
+                    fontSize = Dimensions.MEDIUM_FONT_SIZE
                 )
             }
         }
@@ -179,202 +172,221 @@ fun SSLoadingButtonExample() {
                     orientation = Orientation.Vertical,
                     enabled = true
                 )
-                .padding(0.dp, 0.dp, 10.dp, 0.dp),
+                .padding(0.dp, 0.dp, SPACING_SMALL, 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             //Various example of SSLoadingButton
             item {
                 SSJetPackComposeProgressButton(
-                    assetColor = colorResource(id = R.color.pink),
+                    assetColor = LIGHT_PINK,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
                         disabledContainerColor = Color.White
                     ),
-                    buttonBorderWidth = COMMON_BORDER_WIDTH.dp,
-                    animatedButtonBorderColor = colorResource(id = R.color.pink),
-                    buttonBorderColor = colorResource(id = R.color.pink),
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    animatedButtonBorderColor = LIGHT_PINK,
+                    buttonBorderColor = LIGHT_PINK,
                     type = SSButtonType.CIRCLE,
                     onClick = { roundedProgressState2 = SSButtonState.LOADING },
                     buttonState = roundedProgressState2,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
-                    shouldAutoMoveToIdleState = false
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
                 SSJetPackComposeProgressButton(
-                    assetColor = colorResource(id = R.color.pink),
+                    assetColor = LIGHT_PINK,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
                         disabledContainerColor = Color.White
                     ),
-                    buttonBorderWidth = COMMON_BORDER_WIDTH.dp,
-                    animatedButtonBorderColor = colorResource(id = R.color.pink),
-                    buttonBorderColor = colorResource(id = R.color.pink),
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    animatedButtonBorderColor = LIGHT_PINK,
+                    buttonBorderColor = LIGHT_PINK,
                     type = SSButtonType.WHEEL,
                     onClick = { wheelState = SSButtonState.LOADING },
                     buttonState = wheelState,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
-                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
+                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
                 SSJetPackComposeProgressButton(
-                    assetColor = colorResource(id = R.color.pink),
+                    assetColor = LIGHT_PINK,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
                         disabledContainerColor = Color.White
                     ),
-                    buttonBorderWidth = COMMON_BORDER_WIDTH.dp,
-                    animatedButtonBorderColor = colorResource(id = R.color.pink),
-                    buttonBorderColor = colorResource(id = R.color.pink),
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    animatedButtonBorderColor = LIGHT_PINK,
+                    buttonBorderColor = LIGHT_PINK,
                     type = SSButtonType.ZOOM_IN_OUT_CIRCLE,
                     onClick = { zoomInOutState = SSButtonState.LOADING },
                     buttonState = zoomInOutState,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
-                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
+                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
                 SSJetPackComposeProgressButton(
-                    assetColor = colorResource(id = R.color.pink),
+                    assetColor = LIGHT_PINK,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
                         disabledContainerColor = Color.White
                     ),
-                    buttonBorderWidth = COMMON_BORDER_WIDTH.dp,
-                    animatedButtonBorderColor = colorResource(id = R.color.pink),
-                    buttonBorderColor = colorResource(id = R.color.pink),
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    animatedButtonBorderColor = LIGHT_PINK,
+                    buttonBorderColor = LIGHT_PINK,
                     type = SSButtonType.CLOCK,
                     onClick = { clockState = SSButtonState.LOADING },
                     buttonState = clockState,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
-                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
+                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
                 SSJetPackComposeProgressButton(
-                    assetColor = colorResource(id = R.color.pink),
+                    assetColor = LIGHT_PINK,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
                         disabledContainerColor = Color.White
                     ),
-                    buttonBorderWidth = COMMON_BORDER_WIDTH.dp,
-                    animatedButtonBorderColor = colorResource(id = R.color.pink),
-                    buttonBorderColor = colorResource(id = R.color.pink),
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    animatedButtonBorderColor = LIGHT_PINK,
+                    buttonBorderColor = LIGHT_PINK,
                     type = SSButtonType.SPIRAL,
                     onClick = { spiralState = SSButtonState.LOADING },
                     buttonState = spiralState,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
-                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home)
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
+                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
                 SSJetPackComposeProgressButton(
                     assetColor = Color.White,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(id = R.color.pink),
-                        disabledContainerColor = colorResource(id = R.color.pink)
+                        containerColor = LIGHT_PINK,
+                        disabledContainerColor = LIGHT_PINK
                     ),
                     type = SSButtonType.CIRCLE,
                     onClick = { roundedProgressState = SSButtonState.LOADING },
                     buttonState = roundedProgressState,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
-                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Person)
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
+                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Person),
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
                 SSJetPackComposeProgressButton(
                     assetColor = Color.Yellow,
                     type = SSButtonType.CLOCK,
                     onClick = { blinkingIcon = SSButtonState.LOADING },
                     buttonState = blinkingIcon,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
                     blinkingIcon = true,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.FavoriteBorder),
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(id = R.color.pink),
-                        disabledContainerColor = colorResource(id = R.color.pink)
+                        containerColor = LIGHT_PINK,
+                        disabledContainerColor = LIGHT_PINK
                     ),
-                    hourHandColor = colorResource(id = R.color.handColor)
+                    hourHandColor = Color.White,
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
                 SSJetPackComposeProgressButton(
                     assetColor = Color.White,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(id = R.color.pink),
-                        disabledContainerColor = colorResource(id = R.color.pink)
+                        containerColor = LIGHT_PINK,
+                        disabledContainerColor = LIGHT_PINK
                     ),
                     type = SSButtonType.ZOOM_IN_OUT_CIRCLE,
                     onClick = { ssTextButtonState = SSButtonState.LOADING },
                     buttonState = ssTextButtonState,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
-                    padding = PaddingValues(TWELVE.dp),
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
+                    padding = PaddingValues(SPACING_NORMAL),
                     text = stringResource(id = R.string.stylish_text),
                     fontStyle = FontStyle.Italic,
-                    fontSize = FONT_SIZE.sp,
+                    fontSize = Dimensions.MEDIUM_FONT_SIZE,
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Monospace,
-                    cornerRadius = COMMON_CORNER_RADIUS,
-                    textModifier = Modifier.padding(TWELVE.dp),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
+                    textModifier = Modifier.padding(12.dp),
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
                 SSJetPackComposeProgressButton(
                     assetColor = Color.White,
                     type = SSButtonType.WHEEL,
                     onClick = { textWithIconState = SSButtonState.LOADING },
                     buttonState = textWithIconState,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.Star),
                     text = stringResource(id = R.string.left_icon),
                     fontFamily = FontFamily.SansSerif,
-                    textModifier = Modifier.padding(TWELVE.dp),
-                    fontSize = FONT_SIZE.sp,
+                    textModifier = Modifier.padding(SPACING_NORMAL),
+                    fontSize = Dimensions.MEDIUM_FONT_SIZE,
                     fontWeight = FontWeight.Bold,
                     blinkingIcon = true,
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(id = R.color.pink),
-                        disabledContainerColor = colorResource(id = R.color.pink)
-                    )
+                        containerColor = LIGHT_PINK,
+                        disabledContainerColor = LIGHT_PINK
+                    ),
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
                 SSJetPackComposeProgressButton(
                     assetColor = Color.White,
                     type = SSButtonType.SPIRAL,
                     onClick = { textWithRightButton = SSButtonState.LOADING },
                     buttonState = textWithRightButton,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
                     rightImagePainter = rememberVectorPainter(image = Icons.Default.Star),
                     text = stringResource(id = R.string.right_icon),
                     fontFamily = FontFamily.Serif,
-                    textModifier = Modifier.padding(TWELVE.dp),
-                    fontSize = FONT_SIZE.sp,
+                    textModifier = Modifier.padding(SPACING_NORMAL),
+                    fontSize = Dimensions.MEDIUM_FONT_SIZE,
                     fontWeight = FontWeight.Bold,
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = colorResource(id = R.color.pink),
-                        disabledContainerColor = colorResource(id = R.color.pink)
-                    )
+                        containerColor = LIGHT_PINK,
+                        disabledContainerColor = LIGHT_PINK
+                    ),
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
-                Spacer(modifier = Modifier.size(COMMON_HEIGHT.dp))
+                Spacer(modifier = Modifier.size(Dimensions.COMMON_HEIGHT))
                 SSJetPackComposeProgressButton(
                     type = SSButtonType.CUSTOM,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
                     onClick = { customRotationButtonState = SSButtonState.LOADING },
-                    assetColor = colorResource(id = R.color.pink),
+                    assetColor = LIGHT_PINK,
                     buttonState = customRotationButtonState,
                     successIconPainter = painterResource(id = R.drawable.custom_success),
                     failureIconPainter = painterResource(id = R.drawable.custom_fail),
@@ -387,23 +399,23 @@ fun SSLoadingButtonExample() {
                         containerColor = Color.White,
                         disabledContainerColor = Color.White
                     ),
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     text = stringResource(id = R.string.simform),
-                    textModifier = Modifier.padding(ten.dp),
+                    textModifier = Modifier.padding(SPACING_SMALL),
                     fontWeight = FontWeight.Bold,
-                    fontSize = FONT_SIZE.sp,
-                    leftImagePainter = painterResource(id = drawable.simform_logo),
-                    buttonBorderWidth = COMMON_BORDER_WIDTH.dp,
-                    animatedButtonBorderColor = colorResource(id = R.color.pink),
-                    buttonBorderColor = colorResource(id = R.color.pink)
+                    fontSize = Dimensions.MEDIUM_FONT_SIZE,
+                    leftImagePainter = painterResource(id = R.drawable.simform_logo),
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    animatedButtonBorderColor = LIGHT_PINK,
+                    buttonBorderColor = LIGHT_PINK
                 )
                 SSJetPackComposeProgressButton(
                     type = SSButtonType.CUSTOM,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
                     onClick = { customZoomButtonState = SSButtonState.LOADING },
-                    assetColor = colorResource(id = R.color.pink),
+                    assetColor = LIGHT_PINK,
                     buttonState = customZoomButtonState,
                     successIconPainter = painterResource(id = R.drawable.custom_success),
                     failureIconPainter = painterResource(id = R.drawable.custom_fail),
@@ -416,23 +428,23 @@ fun SSLoadingButtonExample() {
                         containerColor = Color.White,
                         disabledContainerColor = Color.White
                     ),
-                    padding = PaddingValues(TWELVE.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     text = stringResource(id = R.string.simform),
-                    textModifier = Modifier.padding(ten.dp),
+                    textModifier = Modifier.padding(SPACING_SMALL),
                     fontWeight = FontWeight.Bold,
-                    fontSize = FONT_SIZE.sp,
-                    leftImagePainter = painterResource(id = drawable.simform_logo),
-                    buttonBorderWidth = COMMON_BORDER_WIDTH.dp,
-                    animatedButtonBorderColor = colorResource(id = R.color.pink),
-                    buttonBorderColor = colorResource(id = R.color.pink)
+                    fontSize = Dimensions.MEDIUM_FONT_SIZE,
+                    leftImagePainter = painterResource(id = R.drawable.simform_logo),
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    animatedButtonBorderColor = LIGHT_PINK,
+                    buttonBorderColor = LIGHT_PINK
                 )
                 SSJetPackComposeProgressButton(
                     type = SSButtonType.CUSTOM,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
                     onClick = { customEffectButtonState = SSButtonState.LOADING },
-                    assetColor = colorResource(id = R.color.pink),
+                    assetColor = LIGHT_PINK,
                     buttonState = customEffectButtonState,
                     successIconPainter = painterResource(id = R.drawable.custom_success),
                     failureIconPainter = painterResource(id = R.drawable.custom_fail),
@@ -445,44 +457,44 @@ fun SSLoadingButtonExample() {
                         containerColor = Color.White,
                         disabledContainerColor = Color.White
                     ),
-                    padding = PaddingValues(ten.dp),
-                    cornerRadius = COMMON_CORNER_RADIUS,
+                    padding = PaddingValues(SPACING_SMALL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     text = stringResource(id = R.string.simform),
-                    textModifier = Modifier.padding(ten.dp),
+                    textModifier = Modifier.padding(SPACING_SMALL),
                     fontWeight = FontWeight.Bold,
-                    fontSize = FONT_SIZE.sp,
-                    successIconColor = colorResource(id = R.color.dark_green),
-                    failureIconColor = colorResource(id = R.color.colorPrimaryDark),
-                    leftImagePainter = painterResource(id = drawable.simform_logo),
-                    buttonBorderWidth = COMMON_BORDER_WIDTH.dp,
-                    animatedButtonBorderColor = colorResource(id = R.color.pink),
-                    buttonBorderColor = colorResource(id = R.color.pink)
+                    fontSize = Dimensions.MEDIUM_FONT_SIZE,
+                    successIconColor = DARK_GREEN,
+                    failureIconColor = PRIMARY_DARK,
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    animatedButtonBorderColor = LIGHT_PINK,
+                    buttonBorderColor = LIGHT_PINK
                 )
                 SSJetPackComposeProgressButton(
                     type = SSButtonType.CUSTOM,
-                    width = COMMON_WIDTH.dp,
-                    height = COMMON_HEIGHT.dp,
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
                     customLoadingEffect = SSCustomLoadingEffect(gif = true),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
                         disabledContainerColor = Color.White
                     ),
-                    padding = PaddingValues(ten.dp),
-                    textModifier = Modifier.padding(ten.dp),
+                    padding = PaddingValues(SPACING_SMALL),
+                    textModifier = Modifier.padding(SPACING_SMALL),
                     fontWeight = FontWeight.Bold,
-                    fontSize = FONT_SIZE.sp,
+                    fontSize = Dimensions.MEDIUM_FONT_SIZE,
                     onClick = { customGifButtonState = SSButtonState.LOADING },
-                    assetColor = colorResource(id = R.color.pink),
+                    assetColor = LIGHT_PINK,
                     buttonState = customGifButtonState,
                     text = stringResource(id = R.string.gif_loader),
-                    buttonBorderWidth = COMMON_BORDER_WIDTH.dp,
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     animatedButtonBorderColor = Color.Transparent,
-                    buttonBorderColor = colorResource(id = R.color.pink),
+                    buttonBorderColor = LIGHT_PINK,
                     customLoadingIconPainter = gifPainter(
                         data = MainActivity.LOADING_GIF_URL,
                         drawable = ContextCompat.getDrawable(
                             LocalContext.current,
-                            drawable.simform_logo
+                            R.drawable.simform_logo
                         )
                     )
                 )
