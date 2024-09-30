@@ -5,7 +5,9 @@
     <string name="stylish_text">Stylish Text</string>
     <string name="on_success">On Success</string>
     <string name="on_failure">On Failure</string>
-    <string name="simform">SIMFORM</string>
+    <string name="lbl_rotation_animation">Rotation Animation</string>
+    <string name="lbl_zoom_in_out_animation">Zoom In Out Animation</string>
+    <string name="lbl_fade_in_out_animation">Fade In Out Animation</string>
     <string name="gif_loader">Gif Loader</string>
 
 </resources>

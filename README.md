@@ -97,7 +97,7 @@ Please get **Android Studio Arctic Fox 2020.3.1** or above [from here](https://d
         failureIconPainter = painterResource(id = R.drawable.custom_fail),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
         padding = PaddingValues(six.dp),
-        text = stringResource(id = R.string.simform),
+        text = stringResource(id = R.string.app_name),
         textModifier = Modifier.padding(ten.dp),
         fontWeight = FontWeight.Bold,
         leftImagePainter = painterResource(id = R.drawable.simform_logo),

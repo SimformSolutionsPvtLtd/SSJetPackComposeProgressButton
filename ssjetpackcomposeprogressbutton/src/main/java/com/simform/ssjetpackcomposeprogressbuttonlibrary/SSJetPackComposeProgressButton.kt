@@ -4,6 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -14,7 +15,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonElevation
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.TextStyle
@@ -56,7 +57,9 @@ import kotlinx.coroutines.delay
  * @param buttonBorderWidth Border width to draw around the button.
  * @param buttonBorderColor Border color applied to button.
  * @param animatedButtonBorderColor Border color applied to button while in LOADING state.
- * @param blinkingIcon Icon will be blink with size and color.
+ * @param isBlinkingIcon Icon will be blink with size and color.
+ * @param blinkingIconColor Color which will be used with tintcolor for animation when `isBlinkingIcon`
+ * enabled
  * @param cornerRadius Corner radius to be applied to the button.
  * @param speedMillis Speed of the animation while changing the state.
  * @param enabled Controls the enabled state of the button. When `false`, this button will not
@@ -71,12 +74,14 @@ import kotlinx.coroutines.delay
  * will cause the drawn contents to be translucent and setting it to `0` will
  * cause it to be fully invisible. Default value is `1` and the range is between
  * `0` and `1`.
- * @leftImagePainter painter [Painter] to draw inside this left Icon.
- * @rightImagePainter painter [Painter] to draw inside this right Icon.
- * @successIconPainter painter [Painter] to draw inside this success state Icon.
- * @failureIconPainter painter [Painter] to draw inside this failure state Icon.
- * @successIconColor Color to be applied to success icon.
- * @failureIconColor Color to be applied to failure icon.
+ * @param leftImagePainter painter [Painter] to draw inside this left Icon.
+ * @param leftImageTintColor tint color for left Icon.
+ * @param rightImagePainter painter [Painter] to draw inside this right Icon.
+ * @param rightImageTintColor tint color for right Icon.
+ * @param successIconPainter painter [Painter] to draw inside this success state Icon.
+ * @param successIconTintColor tint color for success Icon.
+ * @param failureIconPainter painter [Painter] to draw inside this failure state Icon.
+ * @param failureIconTintColor tint color for failure Icon.
  * @param text The text to be displayed.
  * @param textModifier [Modifier] to apply to this text layout node.
  * @param fontSize The size of glyphs to use when painting the text. See [TextStyle.fontSize].
@@ -101,7 +106,8 @@ fun SSJetPackComposeProgressButton(
     buttonBorderWidth: Dp? = 0.dp,
     buttonBorderColor: Color? = null,
     animatedButtonBorderColor: Color? = null,
-    blinkingIcon: Boolean = false,
+    isBlinkingIcon: Boolean = false,
+    blinkingIconColor: Color? = null,
     cornerRadius: Int = 0,
     speedMillis: Int = DEFAULT_ANIMATION_SPEED,
     enabled: Boolean = true,
@@ -110,11 +116,13 @@ fun SSJetPackComposeProgressButton(
     padding: PaddingValues = PaddingValues(0.dp),
     alphaValue: Float = 1f,
     leftImagePainter: Painter? = null,
+    leftImageTintColor: Color? = null,
     rightImagePainter: Painter? = null,
+    rightImageTintColor: Color? = null,
     successIconPainter: Painter? = null,
+    successIconTintColor: Color? = null,
     failureIconPainter: Painter? = null,
-    successIconColor: Color = assetColor,
-    failureIconColor: Color = assetColor,
+    failureIconTintColor: Color? = null,
     text: String? = null,
     textModifier: Modifier = Modifier,
     fontSize: TextUnit = TextUnit.Unspecified,
@@ -126,7 +134,7 @@ fun SSJetPackComposeProgressButton(
     customLoadingEffect: SSCustomLoadingEffect = SSCustomLoadingEffect(
         rotation = false,
         zoomInOut = false,
-        colorChanger = false
+        fadeInOut = false
     ),
     shouldAutoMoveToIdleState: Boolean = true,
     customLoadingPadding: Int = 0
@@ -269,9 +277,15 @@ fun SSJetPackComposeProgressButton(
         //IDLE State icon
         Row(verticalAlignment = Alignment.CenterVertically) {
             leftImagePainter?.let {
-                Icon(
+                Image(
                     painter = it,
                     contentDescription = null,
+                    colorFilter = getTintColor(
+                        isBlinkingIcon = isBlinkingIcon,
+                        blinkingIconColor = blinkingIconColor,
+                        tintColor = leftImageTintColor,
+                        duration = speedMillis
+                    ),
                     modifier = Modifier
                         .graphicsLayer(
                             alpha = ssAnimateFloatAsState(
@@ -282,21 +296,14 @@ fun SSJetPackComposeProgressButton(
                         .size(
                             ssRepeatedDpAnimation(
                                 initialValue = minHeightWidth - SPACING_LARGE,
-                                targetValue = if (blinkingIcon) {
+                                targetValue = if (isBlinkingIcon) {
                                     minHeightWidth - SPACING_SMALL
                                 } else {
                                     minHeightWidth - SPACING_LARGE
                                 },
                                 durationMillis = speedMillis
                             )
-                        ),
-                    tint = ssRepeatedColorAnimation(
-                        assetColor, if (blinkingIcon) {
-                            Color.White
-                        } else {
-                            assetColor
-                        }, speedMillis
-                    )
+                        )
                 )
             }
             val alphaText = ssAnimateFloatAsState(
@@ -319,9 +326,15 @@ fun SSJetPackComposeProgressButton(
                 }
             }
             rightImagePainter?.let {
-                Icon(
+                Image(
                     painter = it,
                     contentDescription = null,
+                    colorFilter = getTintColor(
+                        isBlinkingIcon = isBlinkingIcon,
+                        blinkingIconColor = blinkingIconColor,
+                        tintColor = rightImageTintColor,
+                        duration = speedMillis
+                    ),
                     modifier = Modifier
                         .graphicsLayer(
                             alpha = ssAnimateFloatAsState(
@@ -332,27 +345,20 @@ fun SSJetPackComposeProgressButton(
                         .size(
                             ssRepeatedDpAnimation(
                                 initialValue = minHeightWidth - SPACING_LARGE,
-                                targetValue = if (blinkingIcon) {
+                                targetValue = if (isBlinkingIcon) {
                                     minHeightWidth - SPACING_SMALL
                                 } else {
                                     minHeightWidth - SPACING_LARGE
                                 },
                                 durationMillis = speedMillis
                             )
-                        ),
-                    tint = ssRepeatedColorAnimation(
-                        assetColor, if (blinkingIcon) {
-                            Color.White
-                        } else {
-                            assetColor
-                        }, speedMillis
-                    )
+                        )
                 )
             }
         }
         //SUCCESS State icon
         successIconPainter?.let {
-            Icon(
+            Image(
                 painter = successIconPainter,
                 contentDescription = null,
                 modifier = Modifier
@@ -363,12 +369,12 @@ fun SSJetPackComposeProgressButton(
                         )
                     )
                     .size(minHeightWidth - SPACING_LARGE),
-                tint = successIconColor
+                colorFilter = successIconTintColor?.let { ColorFilter.tint(it) }
             )
         }
         //FAILURE State icon
         failureIconPainter?.let {
-            Icon(
+            Image(
                 painter = failureIconPainter,
                 contentDescription = null,
                 modifier = Modifier
@@ -379,7 +385,7 @@ fun SSJetPackComposeProgressButton(
                         )
                     )
                     .size(minHeightWidth - SPACING_LARGE),
-                tint = failureIconColor
+                colorFilter = failureIconTintColor?.let { ColorFilter.tint(it) }
             )
         }
         //LOADING State
@@ -398,5 +404,27 @@ fun SSJetPackComposeProgressButton(
             customLoadingEffect = customLoadingEffect,
             customLoadingPadding = customLoadingPadding
         )
+    }
+}
+
+@Composable
+private fun getTintColor(
+    isBlinkingIcon: Boolean,
+    blinkingIconColor: Color? = null,
+    tintColor: Color? = null,
+    duration: Int = 0
+): ColorFilter? {
+    return tintColor?.let {
+        if (isBlinkingIcon) {
+            ColorFilter.tint(
+                ssRepeatedColorAnimation(
+                    it,
+                    blinkingIconColor ?: Color.Transparent,
+                    duration
+                )
+            )
+        } else {
+            ColorFilter.tint(it)
+        }
     }
 }

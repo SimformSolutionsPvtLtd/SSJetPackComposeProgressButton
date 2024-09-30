@@ -7,19 +7,21 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ANIMATION_INITIAL_ZERO
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.DISABLE_VIEW_ALPHA
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.Dimens.BORDER_MEDIUM
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.Dimens.BORDER_SMALL
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.Dimens.SPACING_SMALL
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ENABLE_VIEW_ALPHA
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ROTATE_THREE_SIXTY_DEGREE
 
 @Composable
@@ -103,12 +105,8 @@ fun PrintLoadingBar(
             )
         }
         SSButtonType.CUSTOM -> {
-            val customColor = ssRepeatedColorAnimation(
-                assetColor, if (customLoadingEffect.colorChanger) {
-                    Color.White
-                } else {
-                    assetColor
-                }, durationMillis
+            val customAlpha = ssRepeatedFloatAnimation(
+                ENABLE_VIEW_ALPHA, DISABLE_VIEW_ALPHA, durationMillis
             )
             val customRotation = ssRepeatedFloatAnimation(
                 initialValue = if (customLoadingEffect.rotation) {
@@ -137,8 +135,8 @@ fun PrintLoadingBar(
                         .size(customSize)
                         .graphicsLayer { alpha = progressAlpha }
                         .rotate(customRotation)
-                        .clip(CircleShape),
-                    colorFilter = if (customLoadingEffect.gif) null else ColorFilter.tint(customColor)
+                        .clip(CircleShape)
+                        .alpha(if (customLoadingEffect.fadeInOut) customAlpha else ENABLE_VIEW_ALPHA),
                 )
             }
         }
