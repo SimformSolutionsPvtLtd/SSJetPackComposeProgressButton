@@ -46,7 +46,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import com.simform.ssjetpackcomposeprogressbutton.utils.DARK_GREEN
 import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions
 import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_LARGE
 import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_MEDIUM
@@ -54,7 +53,6 @@ import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_NORMA
 import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_SMALL
 import com.simform.ssjetpackcomposeprogressbutton.utils.LIGHT_BLUE
 import com.simform.ssjetpackcomposeprogressbutton.utils.LIGHT_PINK
-import com.simform.ssjetpackcomposeprogressbutton.utils.PRIMARY_DARK
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.SSButtonState
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.SSButtonType
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.SSCustomLoadingEffect
@@ -70,7 +68,7 @@ class MainActivity : ComponentActivity() {
     }
 
     companion object {
-        const val LOADING_GIF_URL = "https://media.tenor.com/CrhrU7ebGucAAAAi/unless-you-include-this.gif"
+        const val LOADING_GIF_URL = "https://icons8.com/preloaders/preloaders/810/Rainbow-128.gif"
     }
 }
 
@@ -194,7 +192,10 @@ fun SSLoadingButtonExample() {
                     padding = PaddingValues(SPACING_NORMAL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    leftImageTintColor = LIGHT_PINK,
                     successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconTintColor = LIGHT_PINK,
+                    successIconTintColor = LIGHT_PINK,
                     failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
                 SSJetPackComposeProgressButton(
@@ -213,7 +214,10 @@ fun SSLoadingButtonExample() {
                     height = Dimensions.COMMON_HEIGHT,
                     padding = PaddingValues(SPACING_NORMAL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
+                    failureIconTintColor = LIGHT_PINK,
+                    successIconTintColor = LIGHT_PINK,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    leftImageTintColor = LIGHT_PINK,
                     successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
                     failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
@@ -233,7 +237,10 @@ fun SSLoadingButtonExample() {
                     height = Dimensions.COMMON_HEIGHT,
                     padding = PaddingValues(SPACING_NORMAL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
+                    failureIconTintColor = LIGHT_PINK,
+                    successIconTintColor = LIGHT_PINK,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    leftImageTintColor = LIGHT_PINK,
                     successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
                     failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
@@ -253,7 +260,10 @@ fun SSLoadingButtonExample() {
                     height = Dimensions.COMMON_HEIGHT,
                     padding = PaddingValues(SPACING_NORMAL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
+                    failureIconTintColor = LIGHT_PINK,
+                    successIconTintColor = LIGHT_PINK,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    leftImageTintColor = LIGHT_PINK,
                     successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
                     failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
@@ -274,6 +284,9 @@ fun SSLoadingButtonExample() {
                     padding = PaddingValues(SPACING_NORMAL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    leftImageTintColor = LIGHT_PINK,
+                    failureIconTintColor = LIGHT_PINK,
+                    successIconTintColor = LIGHT_PINK,
                     successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
                     failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
@@ -291,6 +304,9 @@ fun SSLoadingButtonExample() {
                     padding = PaddingValues(SPACING_NORMAL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.Person),
+                    leftImageTintColor = Color.White,
+                    failureIconTintColor = Color.White,
+                    successIconTintColor = Color.White,
                     successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
                     failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
@@ -301,14 +317,18 @@ fun SSLoadingButtonExample() {
                     buttonState = blinkingIcon,
                     width = Dimensions.COMMON_WIDTH,
                     height = Dimensions.COMMON_HEIGHT,
-                    blinkingIcon = true,
+                    isBlinkingIcon = true,
+                    blinkingIconColor = Color.Yellow,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.FavoriteBorder),
+                    leftImageTintColor = Color.White,
                     padding = PaddingValues(SPACING_NORMAL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = LIGHT_PINK,
                         disabledContainerColor = LIGHT_PINK
                     ),
+                    failureIconTintColor = Color.White,
+                    successIconTintColor = Color.White,
                     hourHandColor = Color.White,
                     successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
                     failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
@@ -332,6 +352,8 @@ fun SSLoadingButtonExample() {
                     fontFamily = FontFamily.Monospace,
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     textModifier = Modifier.padding(12.dp),
+                    failureIconTintColor = Color.White,
+                    successIconTintColor = Color.White,
                     successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
                     failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
@@ -343,18 +365,22 @@ fun SSLoadingButtonExample() {
                     width = Dimensions.COMMON_WIDTH,
                     height = Dimensions.COMMON_HEIGHT,
                     leftImagePainter = rememberVectorPainter(image = Icons.Default.Star),
+                    leftImageTintColor = Color.White,
+                    blinkingIconColor = Color.White,
                     text = stringResource(id = R.string.left_icon),
                     fontFamily = FontFamily.SansSerif,
                     textModifier = Modifier.padding(SPACING_NORMAL),
                     fontSize = Dimensions.MEDIUM_FONT_SIZE,
                     fontWeight = FontWeight.Bold,
-                    blinkingIcon = true,
+                    isBlinkingIcon = true,
                     padding = PaddingValues(SPACING_NORMAL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = LIGHT_PINK,
                         disabledContainerColor = LIGHT_PINK
                     ),
+                    failureIconTintColor = Color.White,
+                    successIconTintColor = Color.White,
                     successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
                     failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
                 )
@@ -366,12 +392,15 @@ fun SSLoadingButtonExample() {
                     width = Dimensions.COMMON_WIDTH,
                     height = Dimensions.COMMON_HEIGHT,
                     rightImagePainter = rememberVectorPainter(image = Icons.Default.Star),
+                    rightImageTintColor = Color.White,
                     text = stringResource(id = R.string.right_icon),
                     fontFamily = FontFamily.Serif,
                     textModifier = Modifier.padding(SPACING_NORMAL),
                     fontSize = Dimensions.MEDIUM_FONT_SIZE,
                     fontWeight = FontWeight.Bold,
                     padding = PaddingValues(SPACING_NORMAL),
+                    failureIconTintColor = Color.White,
+                    successIconTintColor = Color.White,
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = LIGHT_PINK,
@@ -393,7 +422,7 @@ fun SSLoadingButtonExample() {
                     customLoadingEffect = SSCustomLoadingEffect(
                         rotation = true,
                         zoomInOut = false,
-                        colorChanger = false
+                        fadeInOut = false
                     ),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
@@ -401,11 +430,12 @@ fun SSLoadingButtonExample() {
                     ),
                     padding = PaddingValues(SPACING_NORMAL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
-                    text = stringResource(id = R.string.simform),
+                    text = stringResource(id = R.string.lbl_rotation_animation),
                     textModifier = Modifier.padding(SPACING_SMALL),
+                    customLoadingIconPainter = painterResource(id = R.drawable.baby_pink_android),
                     fontWeight = FontWeight.Bold,
                     fontSize = Dimensions.MEDIUM_FONT_SIZE,
-                    leftImagePainter = painterResource(id = R.drawable.simform_logo),
+                    leftImagePainter = painterResource(id = R.drawable.baby_pink_android),
                     buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
                     animatedButtonBorderColor = LIGHT_PINK,
                     buttonBorderColor = LIGHT_PINK
@@ -422,7 +452,7 @@ fun SSLoadingButtonExample() {
                     customLoadingEffect = SSCustomLoadingEffect(
                         rotation = false,
                         zoomInOut = true,
-                        colorChanger = false
+                        fadeInOut = false
                     ),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
@@ -430,11 +460,12 @@ fun SSLoadingButtonExample() {
                     ),
                     padding = PaddingValues(SPACING_NORMAL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
-                    text = stringResource(id = R.string.simform),
+                    text = stringResource(id = R.string.lbl_zoom_in_out_animation),
                     textModifier = Modifier.padding(SPACING_SMALL),
                     fontWeight = FontWeight.Bold,
                     fontSize = Dimensions.MEDIUM_FONT_SIZE,
-                    leftImagePainter = painterResource(id = R.drawable.simform_logo),
+                    customLoadingIconPainter = painterResource(id = R.drawable.baby_pink_android),
+                    leftImagePainter = painterResource(id = R.drawable.baby_pink_android),
                     buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
                     animatedButtonBorderColor = LIGHT_PINK,
                     buttonBorderColor = LIGHT_PINK
@@ -451,7 +482,7 @@ fun SSLoadingButtonExample() {
                     customLoadingEffect = SSCustomLoadingEffect(
                         rotation = false,
                         zoomInOut = false,
-                        colorChanger = true
+                        fadeInOut = true
                     ),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.White,
@@ -459,12 +490,11 @@ fun SSLoadingButtonExample() {
                     ),
                     padding = PaddingValues(SPACING_SMALL),
                     cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
-                    text = stringResource(id = R.string.simform),
+                    text = stringResource(id = R.string.lbl_fade_in_out_animation),
                     textModifier = Modifier.padding(SPACING_SMALL),
+                    customLoadingIconPainter = painterResource(id = R.drawable.baby_pink_android),
                     fontWeight = FontWeight.Bold,
                     fontSize = Dimensions.MEDIUM_FONT_SIZE,
-                    successIconColor = DARK_GREEN,
-                    failureIconColor = PRIMARY_DARK,
                     buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
                     animatedButtonBorderColor = LIGHT_PINK,
                     buttonBorderColor = LIGHT_PINK
@@ -494,7 +524,7 @@ fun SSLoadingButtonExample() {
                         data = MainActivity.LOADING_GIF_URL,
                         drawable = ContextCompat.getDrawable(
                             LocalContext.current,
-                            R.drawable.simform_logo
+                            R.drawable.baby_pink_android
                         )
                     )
                 )
