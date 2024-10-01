@@ -11,8 +11,8 @@ android {
         applicationId "com.simform.ssjetpackcomposeprogressbutton"
         minSdk libs.versions.minSdk.get().toInteger()
         targetSdk libs.versions.targetSdk.get().toInteger()
-        versionCode 2
-        versionName "1.0.7"
+        versionCode 3
+        versionName "1.0.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
