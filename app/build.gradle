@@ -1,17 +1,18 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk 34
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         applicationId "com.simform.ssjetpackcomposeprogressbutton"
-        minSdk 21
-        targetSdk 34
-        versionCode 2
-        versionName "1.0.7"
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
+        versionCode 3
+        versionName "1.0.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -30,22 +31,20 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         compose true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion compose_compiler
-    }
+    namespace = "com.simform.ssjetpackcomposeprogressbutton"
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
-    implementation "androidx.compose.ui:ui:1.5.4"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling:$compose_version"
-    implementation 'androidx.activity:activity-compose:1.8.2'
+    implementation(libs.appcompat)
+    implementation(libs.ui)
+    implementation(libs.material3)
+    implementation(libs.ui.tooling)
+    implementation(libs.activity.compose)
+    implementation(libs.material)
     implementation project(path: ':ssjetpackcomposeprogressbutton')
 }
