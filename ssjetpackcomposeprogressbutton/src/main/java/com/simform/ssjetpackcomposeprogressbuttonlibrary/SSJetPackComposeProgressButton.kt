@@ -5,9 +5,7 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
@@ -71,7 +69,7 @@ import kotlin.math.roundToInt
  * @param onClick Will be called when the user clicks the button.
  * @param assetColor Color to be applied to icon and text inside button.
  * @param buttonState represent the state of button from IDLE, LOADING, SUCCESS, FAILURE from SSButtonState.
- * @param buttonState represent the state of button from IDLE, LOADING, SUCCESS, FAILIURE from SSButtonState.
+ * @param buttonState represent the state of button from IDLE, LOADING, SUCCESS, FAILURE from SSButtonState.
  * @param buttonBorderWidth Border width to draw around the button.
  * @param buttonBorderColor Border color applied to button.
  * @param animatedButtonBorderColor Border color applied to button while in LOADING state.
@@ -120,7 +118,6 @@ import kotlin.math.roundToInt
  * @param onSwiped Callback when swipe is completed
  */
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SSJetPackComposeProgressButton(
     type: SSButtonType,
