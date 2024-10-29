@@ -2,14 +2,23 @@ package com.simform.ssjetpackcomposeprogressbuttonlibrary
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -26,25 +35,34 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.DEFAULT_ANIMATION_SPEED
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.DELAY_AFTER_SWIPE_COMPLETE
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.DISABLE_VIEW_ALPHA
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.Dimens.COMMON_CORNER_RADIUS
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.Dimens.SPACING_LARGE
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.Dimens.SPACING_SMALL
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.ENABLE_VIEW_ALPHA
 import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.LAUNCH_EFFECT_KEY
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.SWIPE_ABLE_THRESHOLD_FIFTY_PERCENT
+import com.simform.ssjetpackcomposeprogressbuttonlibrary.utils.SWIPE_ABLE_THRESHOLD_HUNDRED_PERCENT
 import kotlinx.coroutines.delay
+import kotlin.math.max
+import kotlin.math.roundToInt
 
 /**
  * @param type of animation from SSButtonType in loading state.
@@ -93,8 +111,16 @@ import kotlinx.coroutines.delay
  * @param customLoadingEffect custom loading animation type.
  * @param customLoadingPadding spacing between button border and loading icon.
  * @param shouldAutoMoveToIdleState In case of success/failure state after defined time it move back to idle state
+ * @param swipeAbleButtonPadding Spacing for swipeAble icon button.
+ * @param swipeAbleButtonThreshold Threshold when swipeAble button should move to swipeComplete state
+ * @param shouldAutomateSwipeToAnimate Boolean value which identifier if button should start animate
+ * as soon as `swipeAbleButtonThreshold` value is reached.
+ * @param onSwipeAbleButtonDragPercentageUpdate Callback which provides progress of swipeAble button
+ * value lies between 0 to 1.
+ * @param onSwiped Callback when swipe is completed
  */
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SSJetPackComposeProgressButton(
     type: SSButtonType,
@@ -115,6 +141,7 @@ fun SSJetPackComposeProgressButton(
     colors: ButtonColors = ButtonDefaults.buttonColors(),
     padding: PaddingValues = PaddingValues(0.dp),
     alphaValue: Float = 1f,
+    swipeAbleImagePainter: Painter? = null,
     leftImagePainter: Painter? = null,
     leftImageTintColor: Color? = null,
     rightImagePainter: Painter? = null,
@@ -137,8 +164,14 @@ fun SSJetPackComposeProgressButton(
         fadeInOut = false
     ),
     shouldAutoMoveToIdleState: Boolean = true,
-    customLoadingPadding: Int = 0
+    customLoadingPadding: Int = 0,
+    swipeAbleButtonPadding: PaddingValues = PaddingValues(0.dp),
+    swipeAbleButtonThreshold: Float = SWIPE_ABLE_THRESHOLD_FIFTY_PERCENT,
+    shouldAutomateSwipeToAnimate: Boolean = false,
+    onSwipeAbleButtonDragPercentageUpdate: (Float) -> Unit = {},
+    onSwiped: () -> Unit = {}
 ) {
+
     var buttonWidth by remember { mutableStateOf(width) }
     var buttonHeight by remember { mutableStateOf(height) }
     var iconAlphaValue by remember { mutableFloatStateOf(ENABLE_VIEW_ALPHA) }
@@ -164,6 +197,40 @@ fun SSJetPackComposeProgressButton(
     } else {
         height
     }
+    // Swipe button related variables
+    var isSwipeCompleted by remember { mutableStateOf(false) }
+    var buttonBoxWidth by remember { mutableIntStateOf(0) }
+    val buttonBoxWidthInDp = with(LocalDensity.current) {
+        buttonBoxWidth.toDp()
+    }
+    var swipeAbleImagePainterWidth by remember { mutableIntStateOf(0) }
+    var swipeAbleButtonDragOffsetX by remember { mutableFloatStateOf(0f) }
+    val swipeAbleButtonDragPercentage = if (buttonBoxWidth > 0) {
+        (swipeAbleButtonDragOffsetX / (buttonBoxWidth - swipeAbleImagePainterWidth))
+            .coerceIn(0f, SWIPE_ABLE_THRESHOLD_HUNDRED_PERCENT)
+    } else {
+        0f
+    }
+    val swipeAbleButtonMaxSwipeDistance = max(
+        0f,
+        buttonBoxWidth.toFloat() - swipeAbleImagePainterWidth.toFloat()
+    )
+
+    LaunchedEffect(isSwipeCompleted) {
+        if (isSwipeCompleted) {
+            onSwiped()
+            delay(DELAY_AFTER_SWIPE_COMPLETE) // We need to add delay before resetting to original state
+            isSwipeCompleted = false
+        }
+    }
+
+    LaunchedEffect(swipeAbleButtonDragPercentage) {
+        onSwipeAbleButtonDragPercentageUpdate(swipeAbleButtonDragPercentage)
+        if (shouldAutomateSwipeToAnimate && swipeAbleButtonDragPercentage > swipeAbleButtonThreshold) {
+            isSwipeCompleted = true
+        }
+    }
+
     when (buttonState) {
         SSButtonState.IDLE -> {
             if (height > width) {
@@ -201,6 +268,7 @@ fun SSJetPackComposeProgressButton(
                 successIconAlphaValue = ENABLE_VIEW_ALPHA
                 progressAlphaValue = DISABLE_VIEW_ALPHA
                 cornerRadiusValue = COMMON_CORNER_RADIUS
+                swipeAbleButtonDragOffsetX = 0f
                 if (shouldAutoMoveToIdleState) {
                     //Delay to show success icon and then IDLE state
                     successIconPainter?.let {
@@ -251,7 +319,8 @@ fun SSJetPackComposeProgressButton(
     }
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.graphicsLayer { alpha = alphaValue }) {
+        modifier = Modifier.graphicsLayer { alpha = alphaValue }
+    ) {
         Button(
             onClick = onClick,
             modifier = Modifier
@@ -264,7 +333,10 @@ fun SSJetPackComposeProgressButton(
                         targetValue = buttonHeight,
                         durationMillis = speedMillis
                     )
-                ),
+                )
+                .onGloballyPositioned {
+                    buttonBoxWidth = it.size.width
+                },
             enabled = enabled && buttonState != SSButtonState.LOADING,
             elevation = elevation,
             shape = RoundedCornerShape(ssAnimateIntAsState(cornerRadiusValue, speedMillis)),
@@ -274,6 +346,7 @@ fun SSJetPackComposeProgressButton(
             ),
             colors = colors
         ) {}
+
         //IDLE State icon
         Row(verticalAlignment = Alignment.CenterVertically) {
             leftImagePainter?.let {
@@ -404,6 +477,52 @@ fun SSJetPackComposeProgressButton(
             customLoadingEffect = customLoadingEffect,
             customLoadingPadding = customLoadingPadding
         )
+        Row(
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.width(buttonBoxWidthInDp)
+        ) {
+            swipeAbleImagePainter?.let {
+                // This is used to animate offset
+                val offset = animateIntOffsetAsState(
+                    targetValue = IntOffset(swipeAbleButtonDragOffsetX.roundToInt(), 0),
+                    label = "offset"
+                )
+                Image(
+                    painter = swipeAbleImagePainter,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .offset { offset.value }
+                        .alpha(
+                            if (buttonState == SSButtonState.LOADING) 0f
+                            else ssAnimateFloatAsState(
+                                targetValue = iconAlphaValue,
+                                durationMillis = speedMillis
+                            )
+                        )
+                        .size(minHeightWidth)
+                        .padding(swipeAbleButtonPadding)
+                        .draggable(
+                            orientation = Orientation.Horizontal,
+                            state = rememberDraggableState { delta ->
+                                swipeAbleButtonDragOffsetX = (swipeAbleButtonDragOffsetX + delta)
+                                    .coerceIn(0f, swipeAbleButtonMaxSwipeDistance)
+                            },
+                            onDragStopped = {
+                                if (swipeAbleButtonDragPercentage < swipeAbleButtonThreshold)
+                                    swipeAbleButtonDragOffsetX = 0f
+                                else {
+                                    swipeAbleButtonDragOffsetX = 0f
+                                    isSwipeCompleted = true
+                                }
+                            }
+                        )
+                        .onGloballyPositioned {
+                            swipeAbleImagePainterWidth = it.size.width
+                        }
+                )
+            }
+        }
     }
 }
 

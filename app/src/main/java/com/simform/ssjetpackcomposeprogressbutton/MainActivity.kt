@@ -1,6 +1,7 @@
 package com.simform.ssjetpackcomposeprogressbutton
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.gestures.Orientation
@@ -47,6 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions
+import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.EXTRA_SPACING_SMALL
 import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_LARGE
 import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_MEDIUM
 import com.simform.ssjetpackcomposeprogressbutton.utils.Dimensions.SPACING_NORMAL
@@ -84,6 +86,8 @@ fun SSLoadingButtonExample() {
     var textWithRightButton: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var textWithIconState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var blinkingIcon: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
+    var automaticSwipeToAnimateButtonState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
+    var swipeToAnimateButtonState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var customRotationButtonState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var customZoomButtonState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
     var customEffectButtonState: SSButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
@@ -113,6 +117,8 @@ fun SSLoadingButtonExample() {
                     customZoomButtonState = SSButtonState.SUCCESS
                     customEffectButtonState = SSButtonState.SUCCESS
                     customGifButtonState = SSButtonState.SUCCESS
+                    automaticSwipeToAnimateButtonState = SSButtonState.SUCCESS
+                    swipeToAnimateButtonState = SSButtonState.SUCCESS
                 },
                 modifier = Modifier
                     .padding(SPACING_NORMAL)
@@ -144,6 +150,8 @@ fun SSLoadingButtonExample() {
                     customEffectButtonState = SSButtonState.FAILURE
                     customZoomButtonState = SSButtonState.FAILURE
                     customGifButtonState = SSButtonState.FAILURE
+                    automaticSwipeToAnimateButtonState = SSButtonState.FAILURE
+                    swipeToAnimateButtonState = SSButtonState.FAILURE
                 },
                 modifier = Modifier
                     .padding(SPACING_NORMAL)
@@ -408,6 +416,64 @@ fun SSLoadingButtonExample() {
                     ),
                     successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
                     failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info)
+                )
+                SSJetPackComposeProgressButton(
+                    assetColor = LIGHT_PINK,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.White,
+                        disabledContainerColor = Color.White
+                    ),
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    animatedButtonBorderColor = LIGHT_PINK,
+                    buttonBorderColor = LIGHT_PINK,
+                    type = SSButtonType.CIRCLE,
+                    onClick = { automaticSwipeToAnimateButtonState = SSButtonState.LOADING },
+                    buttonState = automaticSwipeToAnimateButtonState,
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.COMMON_CORNER_RADIUS,
+                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    leftImageTintColor = LIGHT_PINK,
+                    successIconPainter = rememberVectorPainter(image = Icons.Default.Done),
+                    failureIconTintColor = LIGHT_PINK,
+                    successIconTintColor = LIGHT_PINK,
+                    failureIconPainter = rememberVectorPainter(image = Icons.Outlined.Info),
+                    swipeAbleImagePainter = painterResource(id = R.drawable.move_forward),
+                    shouldAutomateSwipeToAnimate = true,
+                    swipeAbleButtonPadding = PaddingValues(EXTRA_SPACING_SMALL),
+                    onSwiped = {
+                        automaticSwipeToAnimateButtonState = SSButtonState.LOADING
+                    }
+                )
+                SSJetPackComposeProgressButton(
+                    assetColor = LIGHT_PINK,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.White,
+                        disabledContainerColor = Color.White
+                    ),
+                    buttonBorderWidth = Dimensions.COMMON_BORDER_WIDTH,
+                    animatedButtonBorderColor = LIGHT_PINK,
+                    buttonBorderColor = LIGHT_PINK,
+                    type = SSButtonType.CIRCLE,
+                    onClick = { swipeToAnimateButtonState = SSButtonState.LOADING },
+                    buttonState = swipeToAnimateButtonState,
+                    width = Dimensions.COMMON_WIDTH,
+                    height = Dimensions.COMMON_HEIGHT,
+                    padding = PaddingValues(SPACING_NORMAL),
+                    cornerRadius = Dimensions.SWIPE_BUTTON_CORNER_RADIUS,
+                    leftImagePainter = rememberVectorPainter(image = Icons.Default.Home),
+                    leftImageTintColor = LIGHT_PINK,
+                    swipeAbleImagePainter = painterResource(id = R.drawable.move_forward),
+                    shouldAutomateSwipeToAnimate = false,
+                    swipeAbleButtonPadding = PaddingValues(EXTRA_SPACING_SMALL),
+                    onSwipeAbleButtonDragPercentageUpdate = { percentage ->
+                        // Get the swipe progress over here
+                        Log.d("Swipe progress update >", "$percentage")
+                    },
+                    onSwiped = {
+                        swipeToAnimateButtonState = SSButtonState.LOADING
+                    }
                 )
                 Spacer(modifier = Modifier.size(Dimensions.COMMON_HEIGHT))
                 SSJetPackComposeProgressButton(
