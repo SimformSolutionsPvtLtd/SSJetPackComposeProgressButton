@@ -10,11 +10,13 @@ object Dimensions{
     val TOP_BUTTON_RADIUS = 10.dp
     val COMMON_BORDER_WIDTH = 3.dp
     val SPACING_SMALL = 10.dp
+    val EXTRA_SPACING_SMALL = 4.dp
     val SPACING_NORMAL = 12.dp
     val SPACING_MEDIUM = 24.dp
     val SPACING_LARGE = 40.dp
     // Constants
     const val COMMON_CORNER_RADIUS = 25
+    const val SWIPE_BUTTON_CORNER_RADIUS = 50
     // Fonts
     val MEDIUM_FONT_SIZE = 20.sp
 }
