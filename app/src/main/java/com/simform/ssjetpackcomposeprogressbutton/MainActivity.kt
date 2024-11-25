@@ -302,6 +302,7 @@ fun SSLoadingButtonExample() {
                         disabledContainerColor = LIGHT_PINK
                     )
                 )
+                Spacer(modifier = Modifier.size(Dimensions.COMMON_WIDTH))
                 BaseSwipeAbleProgressButton(
                     type = SSButtonType.CIRCLE,
                     onClick = { automaticSwipeToAnimateButtonState = SSButtonState.LOADING },
